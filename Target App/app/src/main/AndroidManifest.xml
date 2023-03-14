@@ -34,7 +34,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".recipes.SeaerchRecipeActivity"
+            android:name=".recipes.SearchRecipeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
