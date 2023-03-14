@@ -1,14 +1,16 @@
-package com.example.recipesapp;
+package com.example.recipesapp.mainMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class SeaerchRecipeActivity extends AppCompatActivity {
+import com.example.recipesapp.R;
+
+public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seaerch_recipe);
+        setContentView(R.layout.activity_main_menu);
     }
 }

@@ -1,14 +1,16 @@
-package com.example.recipesapp;
+package com.example.recipesapp.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ChosenRecipeActivity extends AppCompatActivity {
+import com.example.recipesapp.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chosen_recipe);
+        setContentView(R.layout.activity_login);
     }
 }

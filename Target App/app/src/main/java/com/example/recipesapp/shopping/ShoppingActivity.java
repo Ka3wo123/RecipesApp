@@ -1,14 +1,16 @@
-package com.example.recipesapp;
+package com.example.recipesapp.shopping;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class RegistrationActivity extends AppCompatActivity {
+import com.example.recipesapp.R;
+
+public class ShoppingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_shopping);
     }
 }
