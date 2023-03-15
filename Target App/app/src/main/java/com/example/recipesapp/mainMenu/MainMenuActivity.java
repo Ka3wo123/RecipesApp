@@ -16,6 +16,7 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main_menu);
 
         username = findViewById(R.id.username);
@@ -25,7 +26,5 @@ public class MainMenuActivity extends AppCompatActivity {
         username.setText(globalData.getUsername());
         name.setText(globalData.getName());
         password.setText(globalData.getPassword());
-
-
     }
 }
