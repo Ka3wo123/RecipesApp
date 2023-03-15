@@ -1,3 +1,29 @@
 <resources>
-    <string name="app_name">RecipesApp</string>
+    <string name="app_name">Plan ya Food</string>
+    //Menu
+    <string name="fridgeButton">Your fridge</string>
+    <string name="availableButton">Recipes by avaiableButton</string>
+    <string name="recipesButton">Recipes</string>
+    <string name="wineButton">Paire wine to your meal</string>
+    <string name="shoppingButton">Shopping list</string>
+    
+    //Fridge
+    <string name="fridgeTitle">What\'s in your fridge?</string>
+    <string name="addFridgePop">Add a new product to your fridge</string>
+    <string name="sortFridgePop">Sort by</string>
+
+    //Wine
+    <string name="wineTitle">Find a wine that goes well with a food</string>
+    <string name="wineHeader1">Food can be a dish name ("steak"), an ingredient name ("salmon"), or a cuisine ("italian").</string>
+    <string name="wineHint">Name of food</string>
+
+    //Shopping list
+    <string name="shoppingTitle">Your shopping list</string>
+    <string name="addShoppingPop">Add a new product to your shopping list</string>
+
+    //Recipes
+    <string name="cookbookTitle">Cookbook</string>
+    <string name="cookbookHeader1">Search by a dish name ("steak") or choose from cuisines</string>
+    <string name="foundTitle">Matching recipes</string>
+    
 </resources>
