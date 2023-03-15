@@ -95,7 +95,7 @@
         android:id="@+id/rememberPassword"
         android:layout_width="209dp"
         android:layout_height="26dp"
-        android:checked="true"
+        android:checked="false"
         android:text="Remember username"
         android:textColor="@color/white"
         android:textColorHighlight="#FFFFFF"
