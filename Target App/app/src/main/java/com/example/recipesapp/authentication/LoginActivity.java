@@ -56,35 +56,38 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void selectUserData(String usernameLogin, String passwordLogin) throws SQLException {
-        try (Statement stm = connection.createStatement()) {
-            String query = "select * from User where username = ? and password = ?";
-
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, usernameLogin);
-            ps.setString(2, passwordLogin);
-
-            ResultSet resultSet = stm.executeQuery(query);
-            String name = resultSet.getString("name");
-            String username = resultSet.getString("username");
-            String password = resultSet.getString("password");
-
-            globalData.setName(name);
-            globalData.setUsername(username);
-            globalData.setPassword(password);
-
-            //TODO wywoluje funckje do sprawdzenia czy login zapisany
-                saveCheckedToSP();
+//        try (Statement stm = connection.createStatement()) {
+//            String query = "select * from User where username = ? and password = ?";
+//
+//            PreparedStatement ps = connection.prepareStatement(query);
+//            ps.setString(1, usernameLogin);
+//            ps.setString(2, passwordLogin);
+//
+//            ResultSet resultSet = stm.executeQuery(query);
+//            String name = resultSet.getString("name");
+//            String username = resultSet.getString("username");
+//            String password = resultSet.getString("password");
+//
+//            globalData.setName(name);
+//            globalData.setUsername(username);
+//            globalData.setPassword(password);
+//
+//            //TODO wywoluje funckje do sprawdzenia czy login zapisany
+//                saveCheckedToSP();
 
             Intent mainMenu = new Intent(this, MainMenuActivity.class);
             startActivity(mainMenu);
+//
+//        }
 
-        }
     }
 
     public void goToRegisterActivity(View view) {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
+
+
 
     public void readLoginFromSP(){
         SharedPreferences sharedPreferences = getSharedPreferences("RecipeApp", Context.MODE_PRIVATE);
