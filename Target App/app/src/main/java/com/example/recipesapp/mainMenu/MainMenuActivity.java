@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.recipesapp.Libraries.GlobalData;
 import com.example.recipesapp.R;
 import com.example.recipesapp.authentication.LoginActivity;
@@ -19,10 +22,12 @@ import com.example.recipesapp.recipes.SearchRecipeActivity;
 import com.example.recipesapp.shopping.ShoppingActivity;
 import com.example.recipesapp.wine.WineActivity;
 
+import java.util.ArrayList;
+
 public class MainMenuActivity extends AppCompatActivity {
 
     Button toFridge, toAvailable, toRecipes, toWine, toList;
-
+    ImageSlider imageSlider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,7 @@ public class MainMenuActivity extends AppCompatActivity {
         toRecipes = findViewById(R.id.toRecipes);
         toWine = findViewById(R.id.toWine);
         toList = findViewById(R.id.toList);
+        imageSlider = findViewById(R.id.imageSlider);
 
         bindActivity(toFridge, FridgeActivity.class);
         bindActivity(toAvailable, FoundRecipesActivity.class);
@@ -40,6 +46,7 @@ public class MainMenuActivity extends AppCompatActivity {
         bindActivity(toWine, WineActivity.class);
         bindActivity(toList, ShoppingActivity.class);
 
+        creatingSlideGalery(imageSlider);
 
     }
 
@@ -51,5 +58,18 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    void creatingSlideGalery(ImageSlider imageSlider){
+        ArrayList<SlideModel> images = new ArrayList<>();
+        images.add(new SlideModel(R.drawable.is1, null));
+        images.add(new SlideModel(R.drawable.is2, null));
+        images.add(new SlideModel(R.drawable.is3, null));
+        images.add(new SlideModel(R.drawable.is4, null));
+        images.add(new SlideModel(R.drawable.is5, null));
+        images.add(new SlideModel(R.drawable.is6, null));
+
+        imageSlider.setImageList(images, ScaleTypes.CENTER_CROP);
+
     }
 }
