@@ -86,9 +86,6 @@
         android:background="@drawable/mainmenubutton"
         android:text="@string/recipesButton"
         android:textColor="@color/black"
-        android:drawableStart="@drawable/cookbook_chef"
-        android:paddingStart="20dp"
-        android:paddingEnd="40dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toTopOf="@+id/toWine"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,5 +137,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.957" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
