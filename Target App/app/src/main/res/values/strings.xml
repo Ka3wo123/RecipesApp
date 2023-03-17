@@ -2,7 +2,7 @@
     <string name="app_name">Plan ya Food</string>
     //Menu
     <string name="fridgeButton">Your fridge</string>
-    <string name="availableButton">Recipes by avaiableButton</string>
+    <string name="availableButton">Recipes by avaiable ingredients</string>
     <string name="recipesButton">Recipes</string>
     <string name="wineButton">Paire wine to your meal</string>
     <string name="shoppingButton">Shopping list</string>
