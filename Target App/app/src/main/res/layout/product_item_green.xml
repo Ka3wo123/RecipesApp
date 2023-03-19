@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
+    app:cardCornerRadius="30dp"
     android:id="@+id/cardView"
-    android:layout_margin="20dp"
+    android:layout_margin="10dp"
     app:cardBackgroundColor="#BCE29E"
-    app:cardElevation="50dp"
+    app:cardElevation="10dp"
     app:contentPadding="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,9 +24,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:padding="1dp"
             android:text="Product"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -36,11 +39,13 @@
             android:id="@+id/expiarationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="0dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:padding="1dp"
             android:text="Expiration date"
+            android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +53,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/productName"
             app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="58dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="4dp"
+            android:background="@null"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.508"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
