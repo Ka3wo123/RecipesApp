@@ -1,12 +1,14 @@
 package com.example.recipesapp.Libraries;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipesapp.R;
@@ -47,7 +49,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         private final TextView expDate;
 
         ProductHolder(View itemView) {
-            super((itemView));
+            super(itemView);
             name = itemView.findViewById(R.id.productName);
             expDate = itemView.findViewById(R.id.expiarationDate);
         }
