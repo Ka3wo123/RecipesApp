@@ -6,17 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/frigdeImage"
-        android:layout_width="wrap_content"
-        android:layout_height="220dp"
-        android:layout_marginTop="-2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fridgebackground" />
-
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -51,21 +40,20 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/sort"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frigdeImage" />
+        app:layout_constraintTop_toTopOf="@+id/frigdeImage"
+        app:layout_constraintVertical_bias="0.519" />
 
-    <Button
-        android:id="@+id/addNew"
+    <ImageView
+        android:id="@+id/frigdeImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/operationbutton"
-        android:text="Add new"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="@+id/frigdeImage"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="220dp"
+        android:layout_marginTop="-2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fridgebackground" />
 
     <Button
         android:id="@+id/sort"
@@ -73,21 +61,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/operationbutton"
         android:text="Sort"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="@+id/frigdeImage"
         app:layout_constraintEnd_toStartOf="@+id/save"
-        app:layout_constraintHorizontal_bias="0.57"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toEndOf="@+id/addNew" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/operationbutton"
         android:text="Save"
         android:textAllCaps="false"
@@ -101,9 +89,21 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintHorizontal_bias="0.032"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/operationbutton"
+        android:text="Add new"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/frigdeImage"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
