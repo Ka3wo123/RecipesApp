@@ -15,8 +15,9 @@
         app:iss_period="1000"
         app:layout_constraintBottom_toTopOf="@+id/toFridge"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameMenu"
-        app:layout_constraintVertical_bias="0.409" >
+        app:layout_constraintVertical_bias="0.409">
 
 
     </com.denzcoskun.imageslider.ImageSlider>
@@ -26,29 +27,30 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:text="Hello"
         android:textColor="@color/black"
         android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@+id/toFridge"
+        app:layout_constraintBottom_toTopOf="@+id/imageSlider"
         app:layout_constraintEnd_toStartOf="@+id/usernameMenu"
-        app:layout_constraintHorizontal_bias="0.808"
+        app:layout_constraintHorizontal_bias="0.785"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.165" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/usernameMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:text="Name!"
         android:textColor="@color/black"
         android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@+id/toFridge"
+        app:layout_constraintBottom_toTopOf="@+id/imageSlider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.681"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.165" />
+        app:layout_constraintVertical_bias="0.32999998" />
 
     <Button
         android:id="@+id/userDataButton"
@@ -66,7 +68,8 @@
         android:id="@+id/toAvaiable"
         android:layout_width="300dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/mainmenubutton"
         android:text="@string/availableButton"
         android:drawableStart="@drawable/lightbulb"
@@ -85,7 +88,8 @@
         android:id="@+id/toRecipes"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/mainmenubutton"
         android:text="@string/recipesButton"
         android:drawableStart="@drawable/recipes"
@@ -102,7 +106,8 @@
         android:id="@+id/toWine"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/mainmenubutton"
         android:text="@string/wineButton"
         android:textColor="@color/black"
@@ -124,6 +129,7 @@
         android:drawableStart="@drawable/fridge"
         android:paddingStart="15dp"
         android:paddingEnd="30dp"
+        android:layout_marginTop="15dp"
         android:text="@string/fridgeButton"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
@@ -132,13 +138,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageSlider"
         app:layout_constraintVertical_bias="1.0" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/toList"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/mainmenubutton"
         android:text="@string/shoppingButton"
         android:textColor="@color/black"
@@ -150,7 +158,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.957" />
 
 
