@@ -6,7 +6,7 @@ import java.util.Calendar;
 public class Product implements Comparable<Product> {
     private String name;
     private String expirationDate;
-    private SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat.getDateInstance();
+    private SimpleDateFormat dateFormat;
 
 
     public Product(String name, String expirationDate) {
