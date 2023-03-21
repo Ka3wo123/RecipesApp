@@ -4,13 +4,9 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,9 +17,8 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.example.recipesapp.R;
 
 import java.util.Calendar;
-import java.util.Date;
 
-public class FridgePopUp extends AppCompatDialogFragment {
+public class AddNewPopup extends AppCompatDialogFragment {
     private EditText name;
     private TextView expDate;
     private FridgeDialogListener fridgeDialogListener;

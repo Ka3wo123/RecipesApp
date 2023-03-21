@@ -7,16 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.recipesapp.Libraries.Product;
 import com.example.recipesapp.Libraries.ProductAdapter;
 import com.example.recipesapp.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-public class FridgeActivity extends AppCompatActivity implements FridgePopUp.FridgeDialogListener {
+public class FridgeActivity extends AppCompatActivity implements AddNewPopup.FridgeDialogListener {
     @Override
     public void apply(String name, String date) {
         // TODO trzeba dodawać jeszcze rzecz jasna do bazy danych
@@ -40,13 +38,16 @@ public class FridgeActivity extends AppCompatActivity implements FridgePopUp.Fri
         sortBtn = findViewById(R.id.sort);
         saveBtn = findViewById(R.id.save);
 
-        backBtn.setOnClickListener(v -> {
-            finish();
-        });
+        backBtn.setOnClickListener(v -> finish());
 
         addNewBtn.setOnClickListener(v -> {
-            FridgePopUp popUp = new FridgePopUp();
-            popUp.show(getSupportFragmentManager(), "Fridge popup");
+            AddNewPopup popUp = new AddNewPopup();
+            popUp.show(getSupportFragmentManager(), "Add new popup");
+        });
+
+        sortBtn.setOnClickListener(v -> {
+            SortPopup popUp = new SortPopup();
+            popUp.show(getSupportFragmentManager(), "Sort popup");
         });
 
 
