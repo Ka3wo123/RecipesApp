@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         if(Integer.parseInt(split[0]) - Integer.parseInt(currentDateSplit[2]) > 0 && Integer.parseInt(split[0]) - Integer.parseInt(currentDateSplit[2]) < 7) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#E5EBB2"));
         }
+
 
     }
 
