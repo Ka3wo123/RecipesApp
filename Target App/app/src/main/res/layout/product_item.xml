@@ -8,15 +8,14 @@
     android:id="@+id/cardView"
     android:layout_margin="10dp"
     app:cardBackgroundColor="#BCE29E"
-    app:cardElevation="10dp"
-    app:contentPadding="1dp">
+    app:cardElevation="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/productCardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/productName"
@@ -39,8 +38,7 @@
             android:id="@+id/expiarationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="11dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:padding="1dp"

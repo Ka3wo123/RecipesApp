@@ -12,7 +12,6 @@ public class Product implements Comparable<Product> {
     public Product(String name, String expirationDate) {
         this.name = name;
         this.expirationDate = expirationDate;
-
     }
 
     public String getName() {

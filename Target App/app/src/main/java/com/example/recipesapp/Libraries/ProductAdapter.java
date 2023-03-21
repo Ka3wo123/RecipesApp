@@ -1,19 +1,18 @@
 package com.example.recipesapp.Libraries;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipesapp.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
@@ -28,7 +27,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     @NonNull
     @Override
     public ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.product_item_green, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false);
         return new ProductHolder(view);
     }
 
