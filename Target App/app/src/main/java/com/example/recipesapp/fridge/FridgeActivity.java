@@ -7,20 +7,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.recipesapp.Libraries.Product;
 import com.example.recipesapp.Libraries.ProductAdapter;
 import com.example.recipesapp.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class FridgeActivity extends AppCompatActivity implements AddNewPopup.FridgeDialogListener {
-    @Override
-    public void apply(String name, String date) {
-        // TODO trzeba dodawać jeszcze rzecz jasna do bazy danych
-        products.add(new Product(name, date));
-        productAdapter.notifyDataSetChanged();
-    }
+public class FridgeActivity extends AppCompatActivity implements AddNewPopup.AddNewListener, SortPopup.SortListener {
+
 
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
@@ -50,6 +47,11 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Fri
             popUp.show(getSupportFragmentManager(), "Sort popup");
         });
 
+        saveBtn.setOnClickListener(v -> {
+            //TODO zrobic insert into tabela
+            Toast.makeText(this, "All products saved", Toast.LENGTH_SHORT).show();
+        });
+
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -70,4 +72,16 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Fri
     }
 
 
+    @Override
+    public void sortProductsBy() {
+        Collections.sort(products);
+        productAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void apply(String name, String date) {
+        // TODO trzeba dodawać jeszcze rzecz jasna do bazy danych
+        products.add(new Product(name, date));
+        productAdapter.notifyDataSetChanged();
+    }
 }

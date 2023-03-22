@@ -19,6 +19,8 @@ import com.example.recipesapp.R;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
@@ -47,17 +49,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         String[] split = holder.expDate.getText().toString().split("\\.");
         String[] currentDateSplit = currentDate.toString().split("-");
 
-        if (Integer.parseInt(split[2]) - Integer.parseInt(currentDateSplit[0]) < 0) {
+        Map<String, Integer> dateDiff = new HashMap<>();
+        dateDiff.put("year", Integer.parseInt(split[2]) - Integer.parseInt(currentDateSplit[0]));
+        dateDiff.put("month", Integer.parseInt(split[1]) - Integer.parseInt(currentDateSplit[1]));
+        dateDiff.put("day", Integer.parseInt(split[0]) - Integer.parseInt(currentDateSplit[2]));
+        dateDiff.put("dayGreater", Integer.parseInt(split[0]) - Integer.parseInt(currentDateSplit[2]));
+
+        if (dateDiff.get("year") < 0) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#FF6161"));
         }
-        if(Integer.parseInt(split[2]) - Integer.parseInt(currentDateSplit[0]) == 0 && Integer.parseInt(split[1]) - Integer.parseInt(currentDateSplit[1]) < 0) {
+        if (dateDiff.get("year") == 0 && dateDiff.get("month") < 0) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#FF6161"));
         }
-        if(Integer.parseInt(split[2]) - Integer.parseInt(currentDateSplit[0]) == 0 && Integer.parseInt(split[1]) - Integer.parseInt(currentDateSplit[1]) == 0 && Integer.parseInt(split[0]) - Integer.parseInt(currentDateSplit[2]) < 0) {
+        if (dateDiff.get("year") == 0 && dateDiff.get("month") == 0 && dateDiff.get("day") < 0) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#FF6161"));
         }
 
-        if(Integer.parseInt(split[0]) - Integer.parseInt(currentDateSplit[2]) > 0 && Integer.parseInt(split[0]) - Integer.parseInt(currentDateSplit[2]) < 7) {
+        if (dateDiff.get("year") == 0 && dateDiff.get("month") == 0 && dateDiff.get("day") == 0) {
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#F8C4B4"));
+        }
+
+        if (dateDiff.get("dayGreater") > 0 && dateDiff.get("dayGreater") < 7) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#E5EBB2"));
         }
 

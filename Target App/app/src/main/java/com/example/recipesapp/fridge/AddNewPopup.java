@@ -21,7 +21,7 @@ import java.util.Calendar;
 public class AddNewPopup extends AppCompatDialogFragment {
     private EditText name;
     private TextView expDate;
-    private FridgeDialogListener fridgeDialogListener;
+    private AddNewListener addNewListener;
     private DatePickerDialog datePickerDialog;
 
     @NonNull
@@ -29,7 +29,7 @@ public class AddNewPopup extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.popup_add_new, null);
 
         builder.setView(view).setNegativeButton("Cancel", (dialog, which) -> {
@@ -38,7 +38,7 @@ public class AddNewPopup extends AppCompatDialogFragment {
                 .setPositiveButton("OK", (dialog, which) -> {
                     String productName = name.getText().toString();
                     String expirationDate = expDate.getText().toString();
-                    fridgeDialogListener.apply(productName, expirationDate);
+                    addNewListener.apply(productName, expirationDate);
         });
 
 
@@ -46,10 +46,7 @@ public class AddNewPopup extends AppCompatDialogFragment {
         name = view.findViewById(R.id.addProductFridge);
         expDate = view.findViewById(R.id.expirationDateFridge);
 
-        expDate.setOnClickListener(v -> {
-            initDatePicker();
-
-        });
+        expDate.setOnClickListener(v -> initDatePicker());
 
 
         return builder.create();
@@ -60,13 +57,13 @@ public class AddNewPopup extends AppCompatDialogFragment {
         super.onAttach(context);
 
         try {
-            fridgeDialogListener = (FridgeDialogListener) context;
+            addNewListener = (AddNewListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context + " must implement FridgeDialogListener");
+            throw new ClassCastException(context + " must implement AddNewListener");
         }
     }
 
-    interface FridgeDialogListener {
+    interface AddNewListener {
         void apply(String name, String date);
     }
 
@@ -82,7 +79,7 @@ public class AddNewPopup extends AppCompatDialogFragment {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        datePickerDialog = new DatePickerDialog(getContext(), AlertDialog.THEME_HOLO_DARK, dateSetListener, year, month, day);
+        datePickerDialog = new DatePickerDialog(getContext(), AlertDialog.THEME_HOLO_LIGHT, dateSetListener, year, month, day);
 
         datePickerDialog.show();
     }
