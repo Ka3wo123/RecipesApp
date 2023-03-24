@@ -38,6 +38,7 @@ public class AddNewPopup extends AppCompatDialogFragment {
                 .setPositiveButton("OK", (dialog, which) -> {
                     String productName = name.getText().toString();
                     String expirationDate = expDate.getText().toString();
+                    //TODO insert into fridge
                     addNewListener.apply(productName, expirationDate);
         });
 

@@ -23,10 +23,6 @@ public class Product implements Comparable<Product> {
 
     @Override
     public int compareTo(Product o) {
-        int nameComparison = this.name.compareTo(o.getName());
-        if (nameComparison != 0) {
-            return nameComparison;
-        }
         return this.expirationDate.compareTo(o.getExpirationDate());
     }
 }

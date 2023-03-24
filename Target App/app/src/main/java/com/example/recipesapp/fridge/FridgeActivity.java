@@ -16,12 +16,12 @@ import com.example.recipesapp.R;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class FridgeActivity extends AppCompatActivity implements AddNewPopup.AddNewListener, SortPopup.SortListener {
+public class FridgeActivity extends AppCompatActivity implements AddNewPopup.AddNewListener {
 
 
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
-    private Button addNewBtn, sortBtn, saveBtn;
+    private Button addNewBtn, sortBtn;
     private ImageButton backBtn;
     private ArrayList<Product> products = new ArrayList<>();
 
@@ -33,7 +33,6 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         backBtn = findViewById(R.id.back);
         addNewBtn = findViewById(R.id.addNew);
         sortBtn = findViewById(R.id.sort);
-        saveBtn = findViewById(R.id.save);
 
         backBtn.setOnClickListener(v -> finish());
 
@@ -43,14 +42,9 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         });
 
         sortBtn.setOnClickListener(v -> {
-            SortPopup popUp = new SortPopup();
-            popUp.show(getSupportFragmentManager(), "Sort popup");
+            Collections.sort(products);
         });
 
-        saveBtn.setOnClickListener(v -> {
-            //TODO zrobic insert into tabela
-            Toast.makeText(this, "All products saved", Toast.LENGTH_SHORT).show();
-        });
 
 
         recyclerView = findViewById(R.id.recyclerView);
@@ -72,11 +66,7 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
     }
 
 
-    @Override
-    public void sortProductsBy() {
-        Collections.sort(products);
-        productAdapter.notifyDataSetChanged();
-    }
+
 
     @Override
     public void apply(String name, String date) {
