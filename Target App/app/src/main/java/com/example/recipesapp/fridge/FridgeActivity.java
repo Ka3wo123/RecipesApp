@@ -13,8 +13,12 @@ import com.example.recipesapp.Libraries.Product;
 import com.example.recipesapp.Libraries.ProductAdapter;
 import com.example.recipesapp.R;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class FridgeActivity extends AppCompatActivity implements AddNewPopup.AddNewListener {
 
@@ -41,9 +45,7 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
             popUp.show(getSupportFragmentManager(), "Add new popup");
         });
 
-        sortBtn.setOnClickListener(v -> {
-            Collections.sort(products);
-        });
+        sortBtn.setOnClickListener(v -> sortProducts());
 
 
 
@@ -53,12 +55,12 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         productAdapter = new ProductAdapter(this, products);
         recyclerView.setAdapter(productAdapter);
 
-        products.add(new Product("Mleko", "1.9.1999"));
-        products.add(new Product("Ptysie", "1.1.2023"));
-        products.add(new Product("Kakało", "18.3.2023"));
-        products.add(new Product("Robaki", "27.3.2023"));
-        products.add(new Product("Lazania", "20.3.2023"));
-        products.add(new Product("Syf", "14.8.2023"));
+        products.add(new Product("milk", "2000.09.13"));
+        products.add(new Product("buns", "2000.09.11") );
+        products.add(new Product("beer", "1999.09.30") );
+        products.add(new Product("cherries", "2023.03.30") );
+        products.add(new Product("apples", "2023.03.25") );
+
 
 
         productAdapter.notifyDataSetChanged();
@@ -72,6 +74,11 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
     public void apply(String name, String date) {
         // TODO trzeba dodawać jeszcze rzecz jasna do bazy danych
         products.add(new Product(name, date));
+        productAdapter.notifyDataSetChanged();
+    }
+
+    private void sortProducts() {
+        Collections.sort(products);
         productAdapter.notifyDataSetChanged();
     }
 }

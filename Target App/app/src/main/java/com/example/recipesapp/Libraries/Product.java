@@ -2,10 +2,12 @@ package com.example.recipesapp.Libraries;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Product implements Comparable<Product> {
     private String name;
     private String expirationDate;
+
 
     public Product(String name, String expirationDate) {
         this.name = name;
@@ -23,6 +25,6 @@ public class Product implements Comparable<Product> {
 
     @Override
     public int compareTo(Product o) {
-        return this.expirationDate.compareTo(o.getExpirationDate());
+        return expirationDate.compareTo(o.expirationDate);
     }
 }

@@ -50,10 +50,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         String[] currentDateSplit = currentDate.toString().split("-");
 
         Map<String, Integer> dateDiff = new HashMap<>();
-        dateDiff.put("year", Integer.parseInt(split[2]) - Integer.parseInt(currentDateSplit[0]));
+        dateDiff.put("year", Integer.parseInt(split[0]) - Integer.parseInt(currentDateSplit[0]));
         dateDiff.put("month", Integer.parseInt(split[1]) - Integer.parseInt(currentDateSplit[1]));
-        dateDiff.put("day", Integer.parseInt(split[0]) - Integer.parseInt(currentDateSplit[2]));
-        dateDiff.put("dayGreater", Integer.parseInt(split[0]) - Integer.parseInt(currentDateSplit[2]));
+        dateDiff.put("day", Integer.parseInt(split[2]) - Integer.parseInt(currentDateSplit[2]));
+        dateDiff.put("dayGreater", Integer.parseInt(split[2]) - Integer.parseInt(currentDateSplit[2]));
 
         if (dateDiff.get("year") < 0) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#FF6161"));
