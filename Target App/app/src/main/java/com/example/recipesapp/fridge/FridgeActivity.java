@@ -28,6 +28,7 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
     private Button addNewBtn, sortBtn;
     private ImageButton backBtn;
     private ArrayList<Product> products = new ArrayList<>();
+    private boolean isSorted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +66,14 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         // TODO trzeba dodawać jeszcze rzecz jasna do bazy danych
         products.add(new Product(name, date));
         productAdapter.notifyItemInserted(products.size() - 1);
+        isSorted = false;
     }
 
     private void sortProducts() {
         Collections.sort(products);
-        productAdapter.notifyDataSetChanged();
+        if(!isSorted) {
+            productAdapter.notifyItemRangeChanged(0, products.size());
+            isSorted = true;
+        }
     }
 }
