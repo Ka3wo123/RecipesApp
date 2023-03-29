@@ -77,4 +77,5 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
             isSorted = true;
         }
     }
+
 }
