@@ -1,9 +1,11 @@
 package com.example.recipesapp.fridge;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -28,7 +30,6 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
     private Button addNewBtn, sortBtn;
     private ImageButton backBtn;
     private ArrayList<Product> products = new ArrayList<>();
-    private boolean isSorted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,6 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
 
 
 
-
     }
 
 
@@ -67,15 +67,12 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         products.add(new Product(name, date));
         productAdapter.notifyItemInserted(products.size() - 1);
         recyclerView.scrollToPosition(products.size() - 1);
-        isSorted = false;
     }
 
     private void sortProducts() {
-        if(!isSorted) {
-            Collections.sort(products);
-            productAdapter.notifyItemRangeChanged(0, products.size());
-            isSorted = true;
-        }
+        Collections.sort(products);
+        productAdapter.notifyItemRangeChanged(0, productAdapter.getItemCount());
+
     }
 
 }

@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
     private Context context;
     private ArrayList<Product> products;
+    private int lastPosition = -1;
 
     public ProductAdapter(Context context, ArrayList<Product> products) {
         this.context = context;
@@ -56,29 +59,34 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         String expired = "#FF6161";
         String thisDay = "#F8C4B4";
         String nearExp = "#E5EBB2";
+        String longUse = "#BCE29E";
+
 
         if (year < 0 || (year == 0 && month < 0) || (year == 0 && month == 0 && dayOfMonth < 0)) {
             holder.cardView.setCardBackgroundColor(Color.parseColor(expired));
         }
 
-        if (year == 0 && month == 0 && dayOfMonth == 0) {
+        else if (year == 0 && month == 0 && dayOfMonth == 0) {
             holder.cardView.setCardBackgroundColor(Color.parseColor(thisDay));
         }
 
-        if (month == 0 && (dayOfMonth > 0 && dayOfMonth < 7)) {
+        else if (year == 0 && month == 0 &&  dayOfMonth < 7) {
             holder.cardView.setCardBackgroundColor(Color.parseColor(nearExp));
         }
 
-        if(month == 1 && dayOfMonth <= -24 && dayOfMonth >= -28) {
+        else if(year == 0 && month == 1 && dayOfMonth <= -24 && dayOfMonth >= -28) {
             holder.cardView.setCardBackgroundColor(Color.parseColor(nearExp));
+        } else {
+            holder.cardView.setCardBackgroundColor(Color.parseColor(longUse));
+        }
+
+         if(holder.getAdapterPosition() > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            holder.cardView.startAnimation(animation);
+            lastPosition = holder.getAdapterPosition();
         }
 
 
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
     }
 
     @Override
