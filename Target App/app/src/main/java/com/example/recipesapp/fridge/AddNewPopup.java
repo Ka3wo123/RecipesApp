@@ -86,6 +86,6 @@ public class AddNewPopup extends AppCompatDialogFragment {
     }
 
     private String makeStringDate(int day, int month, int year) {
-        return year + "." + "0" + month + "." + day;
+        return year + "-" + "0" + month + "-" + day;
     }
 }
