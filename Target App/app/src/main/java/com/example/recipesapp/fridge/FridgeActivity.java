@@ -66,12 +66,13 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         // TODO trzeba dodawać jeszcze rzecz jasna do bazy danych
         products.add(new Product(name, date));
         productAdapter.notifyItemInserted(products.size() - 1);
+        recyclerView.scrollToPosition(products.size() - 1);
         isSorted = false;
     }
 
     private void sortProducts() {
-        Collections.sort(products);
         if(!isSorted) {
+            Collections.sort(products);
             productAdapter.notifyItemRangeChanged(0, products.size());
             isSorted = true;
         }
