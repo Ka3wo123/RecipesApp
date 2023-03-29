@@ -55,11 +55,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         LocalDate diffDays = holderDate.minusDays(currentDate.getDayOfMonth());
 
         //TODO month >
-        int year = diffYears.getYear();
-        int month = diffMonths.getMonthValue();
-        int dayOfMonth = diffDays.getDayOfMonth();
+//        int year = diffYears.getYear();
+//        int month = diffMonths.getMonthValue();
+//        int dayOfMonth = diffDays.getDayOfMonth();
+
+        int year = holderDate.getYear() - currentDate.getYear();
+        int month = holderDate.getMonthValue() - currentDate.getMonthValue();
+        int dayOfMonth = holderDate.getDayOfMonth() - currentDate.getDayOfMonth();
+
+
         Log.v("diff", "X " + year + " " + month + " " + dayOfMonth);
-        if(year < 0 || (year == 0 && month < 0) || (year == 0 && month == 0 && dayOfMonth < 0)) {
+        if (year < 0 || (year == 0 && month < 0) || (year == 0 && month == 0 && dayOfMonth < 0)) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#FF6161"));
         }
 
@@ -71,8 +77,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 //            holder.cardView.setCardBackgroundColor(Color.parseColor("#FF6161"));
 //        }
 
-        if(year == 0 && month == 0 && dayOfMonth == 0) {
+        if (year == 0 && month == 0 && dayOfMonth == 0) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#F8C4B4"));
+        }
+
+        if (dayOfMonth > 0 && dayOfMonth < 7) {
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#E5EBB2"));
         }
 
 
