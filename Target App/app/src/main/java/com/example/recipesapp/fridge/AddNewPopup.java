@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,14 +33,17 @@ public class AddNewPopup extends AppCompatDialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.popup_add_new, null);
 
-        builder.setView(view).setNegativeButton("Cancel", (dialog, which) -> {
-        })
-
+        builder.setView(view)
+                .setNegativeButton("Cancel", (dialog, which) -> {})
                 .setPositiveButton("OK", (dialog, which) -> {
                     String productName = name.getText().toString();
                     String expirationDate = expDate.getText().toString();
+                    if (!productName.isEmpty() && !expirationDate.isEmpty()) {
+                        addNewListener.apply(productName, expirationDate);
+                    } else {
+                        Toast.makeText(getContext(), "Product name or exp. date not provided", Toast.LENGTH_SHORT).show();
+                    }
                     //TODO insert into fridge
-                    addNewListener.apply(productName, expirationDate);
         });
 
 
@@ -86,6 +90,17 @@ public class AddNewPopup extends AppCompatDialogFragment {
     }
 
     private String makeStringDate(int day, int month, int year) {
-        return year + "-" + "0" + month + "-" + day;
+        if(day < 10 && month < 10) {
+            return year + "-0" + month + "-0" + day;
+        }
+
+        if(day < 10) {
+            return year + "-" + month + "-0" + day;
+        }
+
+        if(month < 10) {
+            return year + "-0" + month + "-" + day;
+        }
+        return year + "-" + month + "-" + day;
     }
 }

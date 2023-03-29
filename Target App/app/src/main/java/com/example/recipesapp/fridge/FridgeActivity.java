@@ -54,16 +54,8 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         productAdapter = new ProductAdapter(this, products);
         recyclerView.setAdapter(productAdapter);
 
-        products.add(new Product("flour", "2020-12-21") );
-        products.add(new Product("milk", "2023-03-13"));
-        products.add(new Product("milk", "2023-03-29"));
-        products.add(new Product("milk", "2023-04-01"));
-        products.add(new Product("milk", "2022-03-13"));
-        products.add(new Product("milk", "2023-04-13"));
 
 
-
-        productAdapter.notifyDataSetChanged();
 
     }
 
