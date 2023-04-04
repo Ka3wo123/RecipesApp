@@ -8,7 +8,7 @@
     android:id="@+id/cardView"
     android:layout_margin="10dp"
     app:cardBackgroundColor="#BCE29E"
-    app:cardElevation="20dp">
+    app:cardElevation="3dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/productCardView"
