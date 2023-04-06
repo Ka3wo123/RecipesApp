@@ -1,4 +1,4 @@
-package com.example.recipesapp.Api.Models.Wine;
+package com.example.recipesapp.Api.Models.Models.Wine;
 
 import java.util.ArrayList;
 

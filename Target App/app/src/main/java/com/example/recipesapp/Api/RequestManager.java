@@ -2,8 +2,10 @@ package com.example.recipesapp.Api;
 
 import android.content.Context;
 
+import com.example.recipesapp.Api.Listeners.RecipesFoundListener;
 import com.example.recipesapp.Api.Listeners.WineMatchListener;
-import com.example.recipesapp.Api.Models.Wine.WineMatches;
+import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipes;
+import com.example.recipesapp.Api.Models.Models.Wine.WineMatches;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +53,33 @@ public class RequestManager {
         Call<WineMatches> paireWine(
                 @Query("apiKey") String apiKey,
                 @Query("food") String food
+        );
+    }
+    public void getFoundRecipes(RecipesFoundListener listener, String query, String number){
+        CallFindRecipes callFindRecipes = retrofit.create(CallFindRecipes.class);
+        Call<Recipes> call = callFindRecipes.findRecipes(apiKey.getApiKey(), query, number);
+        call.enqueue(new Callback<Recipes>() {
+            @Override
+            public void onResponse(Call<Recipes> call, Response<Recipes> response) {
+                if(!response.isSuccessful()){
+                    listener.didError(response.message());
+                    return;
+                }
+                listener.didFetch(response.body(),response.message());
+            }
+
+            @Override
+            public void onFailure(Call<Recipes> call, Throwable t) {
+                listener.didError(t.getMessage());
+            }
+        });
+    }
+    private interface CallFindRecipes{
+        @GET("recipes/complexSearch")
+        Call<Recipes> findRecipes(
+                @Query("apiKey") String apiKey,
+                @Query("query") String query,
+                @Query("number") String number
         );
     }
 }

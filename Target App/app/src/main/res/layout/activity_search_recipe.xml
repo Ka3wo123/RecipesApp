@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context=".recipes.SearchRecipeActivity">
+
+    <ImageView
+        android:id="@+id/searchRecipes"
+        android:layout_width="63dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/nameOfFoodForRecipes"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11"
+        app:srcCompat="@drawable/lupa" />
+
+    <EditText
+        android:id="@+id/nameOfFoodForRecipes"
+        android:layout_width="284dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/boxdark"
+        android:ems="10"
+        android:hint="@string/wineHint"
+        android:inputType="text"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="411dp"
+        android:layout_height="236dp"
+        android:layout_marginTop="-10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cookbookbackground" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="411dp"
+        android:layout_height="236dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/blur" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/cookbookTitle"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView11" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="203dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/cookbookHeader1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <ImageButton
+        android:id="@+id/back3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="409dp"
+        android:layout_height="480dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameOfFoodForRecipes">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/cuisineBritish"
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/cuisinebritish" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="British"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/cuisineGreek"
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/cuisinegreek" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Greek"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/cuisineIndian"
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/cuisineindian" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Indian"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/cuisineItalian"
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/cuisineitalian" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Italian"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/cuisineJapanese"
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/cuisinejapanese" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Japanese"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/cuisineMexican"
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/cuisinemexican" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mexican"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/cuisineNordic"
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/cuisinenordic" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nordic"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/cuisineThai"
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/cuisinethai" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thai"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+            </TableRow>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

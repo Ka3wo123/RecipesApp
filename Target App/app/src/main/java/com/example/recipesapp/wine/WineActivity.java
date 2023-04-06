@@ -3,8 +3,6 @@ package com.example.recipesapp.wine;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -15,11 +13,9 @@ import android.widget.Toast;
 
 import com.example.recipesapp.Api.Listeners.WineMatchListener;
 import com.example.recipesapp.Api.RequestManager;
-import com.example.recipesapp.Api.Models.Wine.WineMatches;
+import com.example.recipesapp.Api.Models.Models.Wine.WineMatches;
 import com.example.recipesapp.R;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class WineActivity extends AppCompatActivity {
 
