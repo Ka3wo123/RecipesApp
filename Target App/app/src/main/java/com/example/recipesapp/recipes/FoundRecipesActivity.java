@@ -5,21 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recipesapp.Api.Listeners.RecipesFoundListener;
-import com.example.recipesapp.Api.Listeners.WineMatchListener;
 import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipes;
-import com.example.recipesapp.Api.Models.Models.Wine.WineMatches;
 import com.example.recipesapp.Api.RequestManager;
 import com.example.recipesapp.R;
-import com.example.recipesapp.wine.WineActivity;
 
 public class FoundRecipesActivity extends AppCompatActivity {
 
     ProgressDialog dialog;
     RequestManager manager;
     String query;
+
+    //TODO do usuniecia test
+    TextView textView16;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,16 @@ public class FoundRecipesActivity extends AppCompatActivity {
 
         manager.getFoundRecipes(recipesFoundListener, query, "15");
         dialog.show();
+
+        textView16 = findViewById(R.id.test);
+        textView16.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent test = new Intent(FoundRecipesActivity.this, ChosenRecipeActivity.class);
+                test.putExtra("id", 716429);
+                startActivity(test);
+            }
+        });
 
     }
 

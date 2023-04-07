@@ -15,20 +15,15 @@ public class SearchRecipeActivity extends AppCompatActivity {
     ImageButton back;
     ImageView searchRecipes;
     EditText nameOfFood;
+    ImageButton cuisineBritish, cuisineGreek, cuisineIndian, cuisineItalian, cuisineJapanese, cuisineMexican, cuisineNordic, cuisineThai;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_recipe);
 
-        nameOfFood = findViewById(R.id.nameOfFoodForRecipes);
-        back = findViewById(R.id.back3);
-        back.setOnClickListener(v -> {
-            finish();
-        });
-        searchRecipes = findViewById(R.id.searchRecipes);
-        searchRecipes.setOnClickListener(v ->{
-            goToFoundRecipes(nameOfFood.getText().toString());
-        });
+
+        findImageViews();
+        setOnClickListeners();
 
     }
 
@@ -37,5 +32,52 @@ public class SearchRecipeActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), FoundRecipesActivity.class);
         intent.putExtra("query", query);
         startActivity(intent);
+    }
+    void findImageViews(){
+        nameOfFood = findViewById(R.id.nameOfFoodForRecipes);
+        searchRecipes = findViewById(R.id.searchRecipes);
+        back = findViewById(R.id.back3);
+        cuisineBritish = findViewById(R.id.cuisineBritish);
+        cuisineGreek = findViewById(R.id.cuisineGreek);
+        cuisineIndian = findViewById(R.id.cuisineIndian);
+        cuisineItalian = findViewById(R.id.cuisineItalian);
+        cuisineJapanese = findViewById(R.id.cuisineJapanese);
+        cuisineMexican = findViewById(R.id.cuisineMexican);
+        cuisineNordic = findViewById(R.id.cuisineNordic);
+        cuisineThai = findViewById(R.id.cuisineThai);
+    }
+    void setOnClickListeners(){
+        back.setOnClickListener(v -> {
+            finish();
+        });
+
+        searchRecipes.setOnClickListener(v ->{
+            goToFoundRecipes(nameOfFood.getText().toString());
+        });
+
+        cuisineBritish.setOnClickListener(v -> {
+            goToFoundRecipes("british");
+        });
+        cuisineGreek.setOnClickListener(v -> {
+            goToFoundRecipes("greek");
+        });
+        cuisineIndian.setOnClickListener(v -> {
+            goToFoundRecipes("indian");
+        });
+        cuisineItalian.setOnClickListener(v -> {
+            goToFoundRecipes("italian");
+        });
+        cuisineJapanese.setOnClickListener(v -> {
+            goToFoundRecipes("japanese");
+        });
+        cuisineMexican.setOnClickListener(v -> {
+            goToFoundRecipes("mexican");
+        });
+        cuisineNordic.setOnClickListener(v -> {
+            goToFoundRecipes("nordic");
+        });
+        cuisineThai.setOnClickListener(v -> {
+            goToFoundRecipes("thai");
+        });
     }
 }
