@@ -89,6 +89,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
     }
 
+    public void deleteItem(int position) {
+        products.remove(position);
+        notifyItemRemoved(position);
+        Toast.makeText(context, "Product removed from fridge", Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public int getItemCount() {
         return products.size();
@@ -107,4 +113,5 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
         }
     }
+
 }

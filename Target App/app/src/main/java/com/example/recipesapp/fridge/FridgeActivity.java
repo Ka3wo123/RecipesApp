@@ -1,12 +1,15 @@
 package com.example.recipesapp.fridge;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 import com.example.recipesapp.Libraries.Product;
 import com.example.recipesapp.Libraries.ProductAdapter;
 import com.example.recipesapp.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -40,6 +44,7 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         addNewBtn = findViewById(R.id.addNew);
         sortBtn = findViewById(R.id.sort);
 
+
         backBtn.setOnClickListener(v -> finish());
 
         addNewBtn.setOnClickListener(v -> {
@@ -56,6 +61,8 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         productAdapter = new ProductAdapter(this, products);
         recyclerView.setAdapter(productAdapter);
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
 
     }
@@ -74,5 +81,19 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         productAdapter.notifyItemRangeChanged(0, productAdapter.getItemCount());
 
     }
+    
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int position = viewHolder.getAdapterPosition();
+            productAdapter.deleteItem(position);
+
+        }
+    };
 }
