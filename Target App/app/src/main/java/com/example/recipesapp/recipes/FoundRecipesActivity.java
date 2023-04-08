@@ -1,6 +1,8 @@
 package com.example.recipesapp.recipes;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,15 +12,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recipesapp.Api.Listeners.RecipesFoundListener;
+import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipe;
 import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipes;
 import com.example.recipesapp.Api.RequestManager;
+import com.example.recipesapp.Libraries.ProductAdapter;
+import com.example.recipesapp.Libraries.RecipesAdapter;
 import com.example.recipesapp.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FoundRecipesActivity extends AppCompatActivity {
 
     ProgressDialog dialog;
     RequestManager manager;
     String query;
+    private RecyclerView recyclerView;
+    private RecipesAdapter recipesAdapter;
+    private ArrayList<Recipe> recipes = new ArrayList<>();
 
     //TODO do usuniecia test
     TextView textView16;
@@ -26,6 +37,11 @@ public class FoundRecipesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_recipe);
+
+        recyclerView = findViewById(R.id.recyclerViewRecipes);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recipesAdapter = new RecipesAdapter(this, recipes);
+        recyclerView.setAdapter(recipesAdapter);
 
         Intent intent = getIntent();
         query = intent.getStringExtra("query");
@@ -52,6 +68,7 @@ public class FoundRecipesActivity extends AppCompatActivity {
         @Override
         public void didFetch(Recipes recipes, String message) {
             toast(recipes);
+            
             dialog.dismiss();
         }
 

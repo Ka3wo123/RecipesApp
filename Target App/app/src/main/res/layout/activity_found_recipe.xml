@@ -58,6 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView13">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewRecipes"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
