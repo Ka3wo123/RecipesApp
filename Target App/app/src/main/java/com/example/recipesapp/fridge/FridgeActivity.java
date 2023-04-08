@@ -81,8 +81,7 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         productAdapter.notifyItemRangeChanged(0, productAdapter.getItemCount());
 
     }
-
-
+    
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
         @Override
@@ -96,7 +95,5 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
             productAdapter.deleteItem(position);
 
         }
-
-
     };
 }
