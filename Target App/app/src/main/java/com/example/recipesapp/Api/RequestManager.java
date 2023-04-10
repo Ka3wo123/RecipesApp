@@ -1,13 +1,17 @@
 package com.example.recipesapp.Api;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.example.recipesapp.Api.Listeners.RecipeDetailsListener;
 import com.example.recipesapp.Api.Listeners.RecipesFoundListener;
 import com.example.recipesapp.Api.Listeners.WineMatchListener;
+import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipe;
 import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipes;
 import com.example.recipesapp.Api.Models.Models.RecipeDetails.RecipeDetailsResponse;
 import com.example.recipesapp.Api.Models.Models.Wine.WineMatches;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,9 +62,9 @@ public class RequestManager {
                 @Query("food") String food
         );
     }
-    public void getFoundRecipes(RecipesFoundListener listener, String query, String number){
+    public void getFoundRecipes(RecipesFoundListener listener, String query, int number){
         CallFindRecipes callFindRecipes = retrofit.create(CallFindRecipes.class);
-        Call<Recipes> call = callFindRecipes.findRecipes(apiKey.getApiKey(), query, number);
+        Call<Recipes> call = callFindRecipes.findRecipes(query, number, apiKey.getApiKey());
         call.enqueue(new Callback<Recipes>() {
             @Override
             public void onResponse(Call<Recipes> call, Response<Recipes> response) {
@@ -68,7 +72,7 @@ public class RequestManager {
                     listener.didError(response.message());
                     return;
                 }
-                listener.didFetch(response.body(),response.message());
+                listener.didFetch(response.body(), response.message());
             }
 
             @Override
@@ -80,9 +84,9 @@ public class RequestManager {
     private interface CallFindRecipes{
         @GET("recipes/complexSearch")
         Call<Recipes> findRecipes(
-                @Query("apiKey") String apiKey,
                 @Query("query") String query,
-                @Query("number") String number
+                @Query("number") int number,
+                @Query("apiKey") String apiKey
         );
     }
 

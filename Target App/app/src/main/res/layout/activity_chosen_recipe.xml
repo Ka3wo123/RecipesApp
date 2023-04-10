@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/pergamin_background"
     tools:context=".recipes.ChosenRecipeActivity">
 
     <ScrollView
@@ -51,17 +52,19 @@
                 android:layout_height="wrap_content"/>
             <TextView
                 android:text="Ingredients"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_ingredients"
-                android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
         </LinearLayout>
     </ScrollView>
 

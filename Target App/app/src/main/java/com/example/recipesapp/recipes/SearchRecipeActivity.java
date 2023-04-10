@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.recipesapp.R;
 
@@ -51,33 +52,21 @@ public class SearchRecipeActivity extends AppCompatActivity {
             finish();
         });
 
-        searchRecipes.setOnClickListener(v ->{
-            goToFoundRecipes(nameOfFood.getText().toString());
+        searchRecipes.setOnClickListener(v -> {
+            if (nameOfFood.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Enter name of food", Toast.LENGTH_SHORT).show();
+            } else {
+                goToFoundRecipes(nameOfFood.getText().toString());
+            }
         });
 
-        cuisineBritish.setOnClickListener(v -> {
-            goToFoundRecipes("british");
-        });
-        cuisineGreek.setOnClickListener(v -> {
-            goToFoundRecipes("greek");
-        });
-        cuisineIndian.setOnClickListener(v -> {
-            goToFoundRecipes("indian");
-        });
-        cuisineItalian.setOnClickListener(v -> {
-            goToFoundRecipes("italian");
-        });
-        cuisineJapanese.setOnClickListener(v -> {
-            goToFoundRecipes("japanese");
-        });
-        cuisineMexican.setOnClickListener(v -> {
-            goToFoundRecipes("mexican");
-        });
-        cuisineNordic.setOnClickListener(v -> {
-            goToFoundRecipes("nordic");
-        });
-        cuisineThai.setOnClickListener(v -> {
-            goToFoundRecipes("thai");
-        });
+        cuisineBritish.setOnClickListener(v -> goToFoundRecipes("british"));
+        cuisineGreek.setOnClickListener(v -> goToFoundRecipes("greek"));
+        cuisineIndian.setOnClickListener(v -> goToFoundRecipes("indian"));
+        cuisineItalian.setOnClickListener(v -> goToFoundRecipes("italian"));
+        cuisineJapanese.setOnClickListener(v -> goToFoundRecipes("japanese"));
+        cuisineMexican.setOnClickListener(v -> goToFoundRecipes("mexican"));
+        cuisineNordic.setOnClickListener(v -> goToFoundRecipes("nordic"));
+        cuisineThai.setOnClickListener(v -> goToFoundRecipes("thai"));
     }
 }

@@ -10,10 +10,11 @@
         android:id="@+id/searchRecipes"
         android:layout_width="63dp"
         android:layout_height="52dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="3dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/nameOfFoodForRecipes"
         app:layout_constraintTop_toBottomOf="@+id/imageView11"
         app:srcCompat="@drawable/lupa" />
@@ -25,12 +26,13 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/boxdark"
         android:ems="10"
+        android:layout_marginStart="57dp"
         android:hint="@string/wineHint"
         android:inputType="text"
         android:text=""
         android:textAlignment="center"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView10" />
