@@ -35,7 +35,7 @@ public class ChosenRecipeActivity extends AppCompatActivity {
         findViews();
 
         Intent intent = getIntent();
-        id = intent.getIntExtra("id", 716429);
+        id = intent.getIntExtra("id", 715538);
 
         requestManager = new RequestManager(this);
         requestManager.getRecipeDetails(recipeDetailsListener, id);
