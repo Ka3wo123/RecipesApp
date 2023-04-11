@@ -1,6 +1,7 @@
 package com.example.recipesapp.recipes;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +49,7 @@ public class FoundRecipesActivity extends AppCompatActivity {
 
         manager = new RequestManager(this);
         manager.getFoundRecipes(recipesFoundListener, query, number);
+
 
         dialog = new ProgressDialog(this);
 

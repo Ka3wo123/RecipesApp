@@ -24,8 +24,8 @@ import java.util.List;
 
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeHolder>{
 
-    private Context context;
-    public List<Recipe> recipes;
+    private final Context context;
+    private final List<Recipe> recipes;
 
     public RecipesAdapter(Context context, List<Recipe> recipes) {
         this.context = context;
@@ -53,16 +53,19 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeHo
         return recipes.size();
     }
 
-    public static class RecipeHolder extends RecyclerView.ViewHolder {
+    public class RecipeHolder extends RecyclerView.ViewHolder {
         private final ImageView recipeImage;
         private final TextView recipeName;
+        private Recipe recipe;
 
         RecipeHolder(@NonNull View itemView, Context itemContext) {
             super(itemView);
             recipeImage = itemView.findViewById(R.id.recipeImage);
             recipeName = itemView.findViewById(R.id.recipeName);
             itemView.setOnClickListener(v -> {
+                recipe = recipes.get(getAdapterPosition());
                 Intent intent = new Intent(itemContext, ChosenRecipeActivity.class);
+                intent.putExtra("id", recipe.id);
                 itemContext.startActivity(intent);
 
             });
