@@ -1,19 +1,16 @@
 package com.example.recipesapp.Api;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.example.recipesapp.Api.Listeners.RecipeDetailsListener;
 import com.example.recipesapp.Api.Listeners.RecipesFoundListener;
 import com.example.recipesapp.Api.Listeners.RecipesFromFridgeListener;
 import com.example.recipesapp.Api.Listeners.WineMatchListener;
-import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipe;
 import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipes;
 import com.example.recipesapp.Api.Models.Models.RecipeDetails.RecipeDetailsResponse;
+import com.example.recipesapp.Api.Models.Models.RecipesFromFridge.RecipeFromFridge;
 import com.example.recipesapp.Api.Models.Models.RecipesFromFridge.RecipesFromFridge;
 import com.example.recipesapp.Api.Models.Models.Wine.WineMatches;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

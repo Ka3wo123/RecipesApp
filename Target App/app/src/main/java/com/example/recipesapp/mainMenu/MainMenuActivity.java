@@ -55,6 +55,8 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainMenuActivity.this, activity);
+                if(button == toAvailable)
+                    intent.putExtra("fromFridge", true);
                 startActivity(intent);
             }
         });
