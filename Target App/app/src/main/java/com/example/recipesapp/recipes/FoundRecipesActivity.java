@@ -21,6 +21,9 @@ import com.example.recipesapp.Api.RequestManager;
 import com.example.recipesapp.Libraries.RecipesAdapter;
 import com.example.recipesapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FoundRecipesActivity extends AppCompatActivity {
 
     private ProgressDialog dialog;
@@ -87,14 +90,15 @@ public class FoundRecipesActivity extends AppCompatActivity {
     private final RecipesFromFridgeListener recipesFromFridgeListener = new RecipesFromFridgeListener() {
 
         @Override
-        public void didFetch(RecipesFromFridge recipesFromFridge, String message) {
+        public void didFetch(List<RecipeFromFridge> recipesFromFridge, String message) {
 
             dialog.dismiss();
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(FoundRecipesActivity.this, RecyclerView.VERTICAL, false));
 
             Recipes recipes = new Recipes();
-            for( RecipeFromFridge recipeFromFridge : recipesFromFridge.result){
+            recipes.results = new ArrayList<Recipe>();
+            for( RecipeFromFridge recipeFromFridge : recipesFromFridge){
                 Recipe recipe = new Recipe();
                 recipe.id = recipeFromFridge.id;
                 recipe.title = recipeFromFridge.title;
@@ -107,7 +111,7 @@ public class FoundRecipesActivity extends AppCompatActivity {
 
             recyclerView.setAdapter(recipesAdapter);
 
-            if(recipesFromFridge.result.size() == 0) {
+            if(recipesFromFridge.size() == 0) {
                 Toast.makeText(FoundRecipesActivity.this, "No recipes found", Toast.LENGTH_SHORT).show();
                 finish();
             }

@@ -12,6 +12,8 @@ import com.example.recipesapp.Api.Models.Models.RecipesFromFridge.RecipeFromFrid
 import com.example.recipesapp.Api.Models.Models.RecipesFromFridge.RecipesFromFridge;
 import com.example.recipesapp.Api.Models.Models.Wine.WineMatches;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -118,10 +120,10 @@ public class RequestManager {
 
     public void getRecipesFromFridge(RecipesFromFridgeListener listener, String ingredients, int number, boolean ignorePantry, int ranking){
         CallRecipesFromFridge callRecipesFromFridge = retrofit.create(CallRecipesFromFridge.class);
-        Call<RecipesFromFridge> call = callRecipesFromFridge.callRecipesFromFridge(apiKey.getApiKey(), ingredients, number, ignorePantry, ranking);
-        call.enqueue(new Callback<RecipesFromFridge>() {
+        Call<List<RecipeFromFridge>> call = callRecipesFromFridge.callRecipesFromFridge(apiKey.getApiKey(), ingredients, number, ignorePantry, ranking);
+        call.enqueue(new Callback<List<RecipeFromFridge>>() {
             @Override
-            public void onResponse(Call<RecipesFromFridge> call, Response<RecipesFromFridge> response) {
+            public void onResponse(Call<List<RecipeFromFridge>> call, Response<List<RecipeFromFridge>> response) {
                 if(!response.isSuccessful()){
                     listener.didError(response.message());
                     return;
@@ -130,14 +132,14 @@ public class RequestManager {
             }
 
             @Override
-            public void onFailure(Call<RecipesFromFridge> call, Throwable t) {
+            public void onFailure(Call<List<RecipeFromFridge>> call, Throwable t) {
                 listener.didError(t.getMessage());
             }
         });
     }
     private interface CallRecipesFromFridge{
         @GET("recipes/findByIngredients")
-        Call<RecipesFromFridge> callRecipesFromFridge(
+        Call<List<RecipeFromFridge>> callRecipesFromFridge(
                 @Query("apiKey") String apiKey,
                 @Query("ingredients") String ingredients,
                 @Query("number") int number,
