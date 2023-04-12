@@ -48,8 +48,8 @@ public class AddNewPopup extends AppCompatDialogFragment {
 
 
 
-        name = view.findViewById(R.id.addProductFridge);
-        expDate = view.findViewById(R.id.expirationDateFridge);
+        name = view.findViewById(R.id.addProductShopping);
+        expDate = view.findViewById(R.id.quantityEditText);
 
         expDate.setOnClickListener(v -> initDatePicker());
 

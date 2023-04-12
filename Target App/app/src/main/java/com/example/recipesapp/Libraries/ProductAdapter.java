@@ -1,15 +1,12 @@
 package com.example.recipesapp.Libraries;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.recipesapp.R;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
@@ -108,7 +101,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         ProductHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.productName);
-            expDate = itemView.findViewById(R.id.expiarationDate);
+            expDate = itemView.findViewById(R.id.quantity);
             cardView = itemView.findViewById(R.id.cardView);
 
         }

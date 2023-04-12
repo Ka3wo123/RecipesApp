@@ -2,29 +2,20 @@ package com.example.recipesapp.fridge;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.recipesapp.Libraries.Product;
 import com.example.recipesapp.Libraries.ProductAdapter;
 import com.example.recipesapp.R;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 
 public class FridgeActivity extends AppCompatActivity implements AddNewPopup.AddNewListener {
 
@@ -40,9 +31,9 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fridge);
 
-        backBtn = findViewById(R.id.back);
+        backBtn = findViewById(R.id.backShopping);
         addNewBtn = findViewById(R.id.addNew);
-        sortBtn = findViewById(R.id.sort);
+        sortBtn = findViewById(R.id.sortButton);
 
 
         backBtn.setOnClickListener(v -> finish());
@@ -55,7 +46,7 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         sortBtn.setOnClickListener(v -> sortProducts());
 
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerViewShopping);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         productAdapter = new ProductAdapter(this, products);
@@ -63,6 +54,8 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+
 
 
     }
