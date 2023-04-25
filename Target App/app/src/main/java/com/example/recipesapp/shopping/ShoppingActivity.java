@@ -49,7 +49,7 @@ public class ShoppingActivity extends AppCompatActivity implements AddNewShoppin
         });
 
         addToFridge.setOnClickListener(v -> {
-            
+
         });
     }
 
