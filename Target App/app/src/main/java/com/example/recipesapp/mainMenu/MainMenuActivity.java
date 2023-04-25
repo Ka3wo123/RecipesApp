@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
     Button toFridge, toAvailable, toRecipes, toWine, toList;
     ImageSlider imageSlider;
+    String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,10 @@ public class MainMenuActivity extends AppCompatActivity {
         toList = findViewById(R.id.toList);
         imageSlider = findViewById(R.id.imageSlider);
 
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+        Log.v("polska1234", username);
+
         bindActivity(toFridge, FridgeActivity.class);
         bindActivity(toAvailable, FoundRecipesActivity.class);
         bindActivity(toRecipes, SearchRecipeActivity.class);
@@ -50,19 +57,19 @@ public class MainMenuActivity extends AppCompatActivity {
 
     }
 
-    void bindActivity (Button button, Class<?> activity){
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainMenuActivity.this, activity);
-                if(button == toAvailable)
-                    intent.putExtra("fromFridge", true);
-                startActivity(intent);
+    void bindActivity(Button button, Class<?> activity) {
+        button.setOnClickListener(view -> {
+            Intent intent = new Intent(MainMenuActivity.this, activity);
+            if (button == toAvailable) {
+                intent.putExtra("fromFridge", true);
+            } else if (button == toFridge || button == toList) {
+                intent.putExtra("username", username);
             }
+            startActivity(intent);
         });
     }
 
-    void creatingSlideGalery(ImageSlider imageSlider){
+    void creatingSlideGalery(ImageSlider imageSlider) {
         ArrayList<SlideModel> images = new ArrayList<>();
         images.add(new SlideModel(R.drawable.is1, null));
         images.add(new SlideModel(R.drawable.is2, null));

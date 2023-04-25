@@ -6,25 +6,37 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-import com.example.recipesapp.Libraries.Product;
+import com.example.recipesapp.Api.Listeners.FridgeProductListener;
+import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeList;
+import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeProduct;
+import com.example.recipesapp.Api.RequestManager;
 import com.example.recipesapp.Libraries.ProductAdapter;
 import com.example.recipesapp.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class FridgeActivity extends AppCompatActivity implements AddNewPopup.AddNewListener {
 
 
+    private ProgressDialog dialog;
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private Button addNewBtn, sortBtn;
     private ImageButton backBtn;
-    private ArrayList<Product> products = new ArrayList<>();
+    private ArrayList<FridgeProduct> products = new ArrayList<>();
+    private RequestManager requestManager;
+    private String username;
+    private List<Integer> idProduct;
+    private FridgeList fridgeList = new FridgeList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +48,15 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         sortBtn = findViewById(R.id.sortButton);
 
 
+        dialog = new ProgressDialog(this);
+        dialog.show();
+
+        requestManager = new RequestManager(this);
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+
+        requestManager.getFridgeProducts(fridgeProductListener, username);
+        
         backBtn.setOnClickListener(v -> finish());
 
         addNewBtn.setOnClickListener(v -> {
@@ -47,30 +68,51 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
 
 
         recyclerView = findViewById(R.id.recyclerViewShopping);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        productAdapter = new ProductAdapter(this, products);
-        recyclerView.setAdapter(productAdapter);
+
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-
-
-
     }
+
+    private final FridgeProductListener fridgeProductListener = new FridgeProductListener() {
+        @Override
+        public void didFetch(List<FridgeProduct> fridgeProductListener, String message) {
+            dialog.dismiss();
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(FridgeActivity.this));
+
+            fridgeList.productsList = new ArrayList<>();
+
+            for(FridgeProduct product : fridgeProductListener) {
+                FridgeProduct fridgeProduct = new FridgeProduct();
+                fridgeProduct.id = product.id;
+                fridgeProduct.productName = product.productName;
+                fridgeProduct.expirationDate = product.expirationDate;
+
+                fridgeList.productsList.add(fridgeProduct);
+            }
+            productAdapter = new ProductAdapter(FridgeActivity.this, fridgeList.productsList);
+            recyclerView.setAdapter(productAdapter);
+        }
+        @Override
+        public void didError(String error) {
+            Toast.makeText(FridgeActivity.this, "Error with fetching", Toast.LENGTH_SHORT).show();
+        }
+    };
 
 
     @Override
     public void apply(String name, String date) {
-        // TODO trzeba dodawać jeszcze rzecz jasna do bazy danych
-        products.add(new Product(name, date));
-        productAdapter.notifyItemInserted(products.size() - 1);
-        recyclerView.scrollToPosition(products.size() - 1);
+        requestManager.addToFridge(username, name, date);
+        fridgeList.productsList.add(new FridgeProduct(name, date));
+        productAdapter.notifyItemInserted(fridgeList.productsList.size() - 1);
+        recyclerView.scrollToPosition(fridgeList.productsList.size() - 1);
     }
 
     private void sortProducts() {
-        Collections.sort(products);
+        Collections.sort(fridgeList.productsList);
         productAdapter.notifyItemRangeChanged(0, productAdapter.getItemCount());
 
     }
@@ -86,6 +128,7 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
             productAdapter.deleteItem(position);
+            requestManager.deleteFromFridge(fridgeList.productsList.get(position).id);
 
         }
     };

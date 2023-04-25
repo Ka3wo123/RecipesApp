@@ -14,18 +14,20 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeProduct;
+import com.example.recipesapp.Api.RequestManager;
 import com.example.recipesapp.R;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
     private Context context;
-    private ArrayList<Product> products;
+    private List<FridgeProduct> products;
     private int lastPosition = -1;
 
-    public ProductAdapter(Context context, ArrayList<Product> products) {
+    public ProductAdapter(Context context, List<FridgeProduct> products) {
         this.context = context;
         this.products = products;
     }
@@ -40,9 +42,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     @Override
     public void onBindViewHolder(@NonNull ProductHolder holder, int position) {
         LocalDate currentDate = LocalDate.now();
-        Product product = products.get(position);
-        holder.name.setText(product.getName());
-        holder.expDate.setText(product.getExpirationDate());
+
+        FridgeProduct product = products.get(position);
+        holder.name.setText(product.productName);
+        holder.expDate.setText(product.expirationDate);
 
         LocalDate holderDate = LocalDate.parse(holder.expDate.getText());
 

@@ -97,7 +97,7 @@ public class FoundRecipesActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(FoundRecipesActivity.this, RecyclerView.VERTICAL, false));
 
             Recipes recipes = new Recipes();
-            recipes.results = new ArrayList<Recipe>();
+            recipes.results = new ArrayList<>();
             for( RecipeFromFridge recipeFromFridge : recipesFromFridge){
                 Recipe recipe = new Recipe();
                 recipe.id = recipeFromFridge.id;

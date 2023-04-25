@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecipesApp"
         android:launchMode="singleInstance"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".shopping.ShoppingActivity"

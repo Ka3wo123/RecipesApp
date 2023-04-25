@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.recipesapp.Api.RequestManager;
 import com.example.recipesapp.R;
 
 import java.util.Calendar;
@@ -43,7 +44,6 @@ public class AddNewPopup extends AppCompatDialogFragment {
                     } else {
                         Toast.makeText(getContext(), "Product name or exp. date not provided", Toast.LENGTH_SHORT).show();
                     }
-                    //TODO insert into fridge
         });
 
 
