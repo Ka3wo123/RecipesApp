@@ -60,7 +60,7 @@ public class WineActivity extends AppCompatActivity {
     private final WineMatchListener wineMatchListener = new WineMatchListener() {
         @Override
         public void didFetch(WineMatches wineMatches, String message) {
-            if(wineMatches.productMatches == null) {
+            if(wineMatches.productMatches == null || wineMatches.productMatches.size() == 0) {
                 Toast.makeText(WineActivity.this, "No wines found", Toast.LENGTH_SHORT).show();
             } else {
                 setContent(wineMatches);
