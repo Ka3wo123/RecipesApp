@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -18,7 +19,14 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.example.recipesapp.Api.RequestManager;
 import com.example.recipesapp.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddNewPopup extends AppCompatDialogFragment {
     private EditText name;
@@ -35,17 +43,20 @@ public class AddNewPopup extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.popup_add_new, null);
 
         builder.setView(view)
-                .setNegativeButton("Cancel", (dialog, which) -> {})
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                })
                 .setPositiveButton("OK", (dialog, which) -> {
                     String productName = name.getText().toString();
-                    String expirationDate = expDate.getText().toString();
-                    if (!productName.isEmpty() && !expirationDate.isEmpty()) {
-                        addNewListener.apply(productName, expirationDate);
+                    String date = expDate.getText().toString();
+
+                    if (!productName.isEmpty() && !date.isEmpty()) {
+                        addNewListener.apply(productName, date);
                     } else {
                         Toast.makeText(getContext(), "Product name or exp. date not provided", Toast.LENGTH_SHORT).show();
                     }
-        });
 
+
+                });
 
 
         name = view.findViewById(R.id.addProductShopping);
@@ -90,15 +101,15 @@ public class AddNewPopup extends AppCompatDialogFragment {
     }
 
     private String makeStringDate(int day, int month, int year) {
-        if(day < 10 && month < 10) {
+        if (day < 10 && month < 10) {
             return year + "-0" + month + "-0" + day;
         }
 
-        if(day < 10) {
+        if (day < 10) {
             return year + "-" + month + "-0" + day;
         }
 
-        if(month < 10) {
+        if (month < 10) {
             return year + "-0" + month + "-" + day;
         }
         return year + "-" + month + "-" + day;

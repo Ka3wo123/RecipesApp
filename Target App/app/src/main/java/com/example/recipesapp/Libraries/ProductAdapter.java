@@ -47,7 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         holder.name.setText(product.productName);
         holder.expDate.setText(product.expirationDate);
 
-        LocalDate holderDate = LocalDate.parse(holder.expDate.getText());
+        LocalDate holderDate = LocalDate.parse(holder.expDate.getText().toString());
 
         int year = holderDate.getYear() - currentDate.getYear();
         int month = holderDate.getMonthValue() - currentDate.getMonthValue();

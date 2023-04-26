@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -20,8 +21,10 @@ import com.example.recipesapp.Api.RequestManager;
 import com.example.recipesapp.Libraries.ProductAdapter;
 import com.example.recipesapp.R;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class FridgeActivity extends AppCompatActivity implements AddNewPopup.AddNewListener {
@@ -32,10 +35,8 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
     private ProductAdapter productAdapter;
     private Button addNewBtn, sortBtn;
     private ImageButton backBtn;
-    private ArrayList<FridgeProduct> products = new ArrayList<>();
     private RequestManager requestManager;
     private String username;
-    private List<Integer> idProduct;
     private FridgeList fridgeList = new FridgeList();
 
     @Override
@@ -105,7 +106,7 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
 
     @Override
     public void apply(String name, String date) {
-        requestManager.addToFridge(username, name, date);
+        requestManager.addToFridge(new FridgeProduct(username, name, date));
         fridgeList.productsList.add(new FridgeProduct(name, date));
         productAdapter.notifyItemInserted(fridgeList.productsList.size() - 1);
         recyclerView.scrollToPosition(fridgeList.productsList.size() - 1);
@@ -127,8 +128,8 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            productAdapter.deleteItem(position);
             requestManager.deleteFromFridge(fridgeList.productsList.get(position).id);
+            productAdapter.deleteItem(position);
 
         }
     };

@@ -15,6 +15,7 @@ import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.recipesapp.Api.Models.Models.AccountDetails.Account;
 import com.example.recipesapp.Api.RequestManager;
 import com.example.recipesapp.Libraries.DatabaseManager;
 import com.example.recipesapp.Libraries.GlobalData;
@@ -26,12 +27,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -68,14 +71,12 @@ public class LoginActivity extends AppCompatActivity {
 //        if(readCheckedFromSP())
 //            readLoginFromSP();
 
-        loginBtn.setOnClickListener(v -> selectUserData(username.getText().toString(), "abc"));
-
-
+        loginBtn.setOnClickListener(v -> selectUserData());
 
 
     }
 
-    public void selectUserData(String usernameLogin, String passwordLogin)  {
+    public void selectUserData() {
 //        try (Statement stm = connection.createStatement()) {
 //            String query = "select * from User where username = ? and password = ?";
 //
@@ -112,8 +113,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 boolean isValid = Boolean.TRUE.equals(response.body());
-                Log.v("eloelo", String.valueOf(response.code()));
-                if(isValid) {
+                Log.v("username", response.code() + " " + isValid);
+                // TODO zmienic na isValid !!!!
+                if (true) {
                     mainMenu.putExtra("username", username.getText().toString());
                     startActivity(mainMenu);
                 } else {
@@ -124,6 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
 
+                Log.v("dupajasia", t.getMessage());
             }
         });
 
@@ -134,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private interface CallAccount {
-        @GET("account/validate")
+        @GET("/account/validate")
         Call<Boolean> validateCredentials(@Query("username") String username, @Query("password") String password);
     }
 
@@ -144,26 +147,26 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-    public void readLoginFromSP(){
+    public void readLoginFromSP() {
         SharedPreferences sharedPreferences = getSharedPreferences("RecipeApp", Context.MODE_PRIVATE);
-        String login = sharedPreferences.getString("login","");
+        String login = sharedPreferences.getString("login", "");
         EditText editText = findViewById(R.id.username);
         editText.setText(login);
     }
 
-    boolean readCheckedFromSP(){
+    boolean readCheckedFromSP() {
         SharedPreferences sharedPreferences = getSharedPreferences("RecipeApp", Context.MODE_PRIVATE);
-        String checked = sharedPreferences.getString("checked","false");
+        String checked = sharedPreferences.getString("checked", "false");
         return checked.equals("true");
     }
-    public void saveCheckedToSP(){
+
+    public void saveCheckedToSP() {
         CheckBox checked = findViewById(R.id.rememberPassword);
         EditText login = findViewById(R.id.username);
-        if(checked.isChecked()){
+        if (checked.isChecked()) {
             SharedPreferences sharedPreferences = getSharedPreferences("RecipeApp", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("checked","true");
+            editor.putString("checked", "true");
             editor.apply();
             editor.putString("login", String.valueOf(login.getText()));
             editor.apply();

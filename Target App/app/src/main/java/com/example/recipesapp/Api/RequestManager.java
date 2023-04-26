@@ -7,14 +7,18 @@ import com.example.recipesapp.Api.Listeners.FridgeProductListener;
 import com.example.recipesapp.Api.Listeners.RecipeDetailsListener;
 import com.example.recipesapp.Api.Listeners.RecipesFoundListener;
 import com.example.recipesapp.Api.Listeners.RecipesFromFridgeListener;
+import com.example.recipesapp.Api.Listeners.ShoppingListener;
 import com.example.recipesapp.Api.Listeners.WineMatchListener;
 import com.example.recipesapp.Api.Models.Models.AccountDetails.Account;
 import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeProduct;
 import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipes;
 import com.example.recipesapp.Api.Models.Models.RecipeDetails.RecipeDetailsResponse;
 import com.example.recipesapp.Api.Models.Models.RecipesFromFridge.RecipeFromFridge;
+import com.example.recipesapp.Api.Models.Models.ShoppingProducts.ShoppingProduct;
 import com.example.recipesapp.Api.Models.Models.Wine.WineMatches;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -22,6 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -38,6 +43,8 @@ public class RequestManager {
             .baseUrl("https://api.spoonacular.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+
+    // TODO zmienić URL na serwer z Azure tu i w LoginActivity
     Retrofit databaseRetrofit = new Retrofit.Builder()
             .baseUrl("http://192.168.2.58:8080/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -47,51 +54,88 @@ public class RequestManager {
         this.context = context;
     }
 
-//    public void validateAccount(String username, char[] password) {
-//        CallAccount accountCall = databaseRetrofit.create(CallAccount.class);
-//        Call<Boolean> call = accountCall.validateCredentials(username, password);
-//        call.enqueue(new Callback<Boolean>() {
-//            @Override
-//            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-//                Boolean isValid = Boolean.TRUE.equals(response.body());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Boolean> call, Throwable t) {
-//
-//            }
-//        });
-//
-//    }
-//
-//    private interface CallAccount {
-//        @GET("account/validate")
-//        Call<Boolean> validateCredentials(@Query("username") String username, @Query("password") char[] password);
-//    }
+    public void getShoppingListProducts(ShoppingListener listener, String username) {
+        CallShoppingProduct shoppingProduct = databaseRetrofit.create(CallShoppingProduct.class);
+        Call<List<ShoppingProduct>> call = shoppingProduct.callShoppingProducts(username);
+        call.enqueue(new Callback<List<ShoppingProduct>>() {
+            @Override
+            public void onResponse(Call<List<ShoppingProduct>> call, Response<List<ShoppingProduct>> response) {
+                listener.didFetch(response.body(), response.message());
+            }
+
+            @Override
+            public void onFailure(Call<List<ShoppingProduct>> call, Throwable t) {
+                listener.didError(t.getMessage());
+            }
+        });
+    }
+
+    public void addToShoppingList(ShoppingProduct shoppingProduct) {
+        CallShoppingProduct shoppingProductcall = databaseRetrofit.create(CallShoppingProduct.class);
+        Call<ShoppingProduct> call = shoppingProductcall.addProductToShoppingList(shoppingProduct);
+        call.enqueue(new Callback<ShoppingProduct>() {
+            @Override
+            public void onResponse(Call<ShoppingProduct> call, Response<ShoppingProduct> response) {
+                Log.v("onSaveProductShoppingProduct", "Shopping product saved, code: " + response.code());
+            }
+
+            @Override
+            public void onFailure(Call<ShoppingProduct> call, Throwable t) {
+                Log.v("onFailureSaveShoppingProduct", "Failed while saving: " + t.getMessage());
+            }
+        });
+    }
+
+    public void deleteFromShoppingList(Integer id) {
+        CallShoppingProduct shoppingProduct = databaseRetrofit.create(CallShoppingProduct.class);
+        Call<ShoppingProduct> call = shoppingProduct.deleteShoppingProduct(id);
+        call.enqueue(new Callback<ShoppingProduct>() {
+            @Override
+            public void onResponse(Call<ShoppingProduct> call, Response<ShoppingProduct> response) {
+                Log.v("onDeletedShoppingProduct", "Deleted from shopping list");
+            }
+
+            @Override
+            public void onFailure(Call<ShoppingProduct> call, Throwable t) {
+                Log.v("onFailureDeleteShoppingProduct", "Error while deleting: " + t.getMessage());
+            }
+        });
+    }
+
+    private interface CallShoppingProduct {
+        @GET("shoppingList/account/{username}")
+        Call<List<ShoppingProduct>> callShoppingProducts(@Path("username") String username);
+
+        @POST("/shoppingList")
+        Call<ShoppingProduct> addProductToShoppingList(@Body ShoppingProduct shoppingProduct);
+
+        @DELETE("/shoppingProduct/{id}")
+        Call<ShoppingProduct> deleteShoppingProduct(@Path("id") Integer id);
+    }
 
     public void getFridgeProducts(FridgeProductListener listener, String username) {
         CallFridgeProduct fridgeProduct = databaseRetrofit.create(CallFridgeProduct.class);
         Call<List<FridgeProduct>> call = fridgeProduct.callFridgeProducts(username);
         call.enqueue(new Callback<List<FridgeProduct>>() {
             @Override
-            public void onResponse(retrofit2.Call<List<FridgeProduct>> call, Response<List<FridgeProduct>> response) {
+            public void onResponse(Call<List<FridgeProduct>> call, Response<List<FridgeProduct>> response) {
                 listener.didFetch(response.body(), response.message());
             }
 
             @Override
-            public void onFailure(retrofit2.Call<List<FridgeProduct>> call, Throwable t) {
+            public void onFailure(Call<List<FridgeProduct>> call, Throwable t) {
                 listener.didError(t.getMessage());
             }
         });
     }
 
-    public void addToFridge(String username, String productName, String expirationDate) {
-        CallFridgeProduct fridgeProduct = databaseRetrofit.create(CallFridgeProduct.class);
-        Call<FridgeProduct> fridgeProductCall = fridgeProduct.addProductToFridge(username, productName, expirationDate);
+    public void addToFridge(FridgeProduct product) {
+        CallFridgeProduct fridgeProductcall = databaseRetrofit.create(CallFridgeProduct.class);
+        Call<FridgeProduct> fridgeProductCall = fridgeProductcall.addProductToFridge(product);
         fridgeProductCall.enqueue(new Callback<FridgeProduct>() {
             @Override
             public void onResponse(Call<FridgeProduct> call, Response<FridgeProduct> response) {
-                Log.v("onSaveProductFridge", "Product saved");
+                Log.v("onSaveProductFridge", "Product saved, code: " + response.code());
             }
 
             @Override
@@ -118,14 +162,13 @@ public class RequestManager {
     }
 
     private interface CallFridgeProduct {
-        @GET("fridge/account/{username}")
+        @GET("/fridge/account/{username}")
         Call<List<FridgeProduct>> callFridgeProducts(@Path("username") String username);
 
-        @FormUrlEncoded
-        @POST("fridge")
-        Call<FridgeProduct> addProductToFridge(@Field("username") String username, @Field("productName") String productName, @Field("expirationDate") String expirationDate);
+        @POST("/fridge")
+        Call<FridgeProduct> addProductToFridge(@Body FridgeProduct fridgeProduct);
 
-        @DELETE("fridge/{id}")
+        @DELETE("/fridge/{id}")
         Call<FridgeProduct> deleteProduct(@Path("id") Integer id);
     }
 
@@ -150,7 +193,7 @@ public class RequestManager {
     }
 
     private interface CallPaireWine {
-        @GET("food/wine/pairing")
+        @GET("/food/wine/pairing")
         Call<WineMatches> paireWine(
                 @Query("apiKey") String apiKey,
                 @Query("food") String food
@@ -178,7 +221,7 @@ public class RequestManager {
     }
 
     private interface CallFindRecipes {
-        @GET("recipes/complexSearch")
+        @GET("/recipes/complexSearch")
         Call<Recipes> findRecipes(
                 @Query("query") String query,
                 @Query("number") int number,
@@ -207,7 +250,7 @@ public class RequestManager {
     }
 
     private interface CallRecipeDetails {
-        @GET("recipes/{id}/information")
+        @GET("/recipes/{id}/information")
         Call<RecipeDetailsResponse> callRecipeDetails(
                 @Path("id") int id,
                 @Query("apiKey") String apiKey
@@ -235,7 +278,7 @@ public class RequestManager {
     }
 
     private interface CallRecipesFromFridge {
-        @GET("recipes/findByIngredients")
+        @GET("/recipes/findByIngredients")
         Call<List<RecipeFromFridge>> callRecipesFromFridge(
                 @Query("apiKey") String apiKey,
                 @Query("ingredients") String ingredients,

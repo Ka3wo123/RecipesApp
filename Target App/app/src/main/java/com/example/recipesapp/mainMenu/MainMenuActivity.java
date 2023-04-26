@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -45,7 +46,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
-        Log.v("polska1234", username);
 
         bindActivity(toFridge, FridgeActivity.class);
         bindActivity(toAvailable, FoundRecipesActivity.class);

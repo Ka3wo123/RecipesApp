@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.recipesapp.Api.Models.Models.ShoppingProducts.ShoppingProduct;
+import com.example.recipesapp.Api.Models.Models.ShoppingProducts.ShoppingProductsList;
 import com.example.recipesapp.R;
 
 import java.time.LocalDate;
@@ -23,10 +25,10 @@ import java.util.List;
 public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingHolder> {
 
     private Context context;
-    private List<ProductShopping> products;
+    private List<ShoppingProduct> products;
     private int lastPosition = -1;
 
-    public ShoppingAdapter(Context context, List<ProductShopping> products) {
+    public ShoppingAdapter(Context context, List<ShoppingProduct> products) {
         this.context = context;
         this.products = products;
     }
@@ -40,9 +42,9 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingHolder holder, int position) {
-        ProductShopping product = products.get(position);
-        holder.name.setText(product.getName());
-        holder.quantity.setText(product.getQuantity());
+        ShoppingProduct product = products.get(position);
+        holder.name.setText(product.productName);
+        holder.quantity.setText(product.quantity.toString());
 
         if(holder.getAdapterPosition() > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
@@ -69,7 +71,6 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         private final TextView quantity;
         private final CardView cardView;
         private final ImageButton deleteBtn;
-        private ProductShopping productShopping;
 
 
         ShoppingHolder(@NonNull View itemView, Context context) {

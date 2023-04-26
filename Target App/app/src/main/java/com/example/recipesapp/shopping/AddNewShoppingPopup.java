@@ -35,7 +35,7 @@ public class AddNewShoppingPopup extends AppCompatDialogFragment {
                 .setNegativeButton("Cancel", (dialog, which) -> {})
                 .setPositiveButton("OK", (dialog, which) -> {
                     String productName = name.getText().toString();
-                    String quantity = quantityEditText.getText().toString();
+                    Integer quantity = Integer.parseInt(quantityEditText.getText().toString());
                     if (!productName.isEmpty()) {
                         addNewListener.apply(productName, quantity);
                     } else {
@@ -63,7 +63,7 @@ public class AddNewShoppingPopup extends AppCompatDialogFragment {
     }
 
     interface AddNewListener {
-        void apply(String name, String quantity);
+        void apply(String name, Integer quantity);
     }
 
 
