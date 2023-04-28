@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         registerView = findViewById(R.id.signUpTv);
-        
+
 
         registerView.setOnClickListener(v -> goToRegisterActivity());
 
