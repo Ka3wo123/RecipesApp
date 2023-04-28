@@ -15,7 +15,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeProduct;
-import com.example.recipesapp.Api.RequestManager;
 import com.example.recipesapp.R;
 
 import java.time.LocalDate;

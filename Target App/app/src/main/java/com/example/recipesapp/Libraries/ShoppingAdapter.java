@@ -1,6 +1,5 @@
 package com.example.recipesapp.Libraries;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipesapp.Api.Models.Models.ShoppingProducts.ShoppingProduct;
-import com.example.recipesapp.Api.Models.Models.ShoppingProducts.ShoppingProductsList;
 import com.example.recipesapp.R;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingHolder> {

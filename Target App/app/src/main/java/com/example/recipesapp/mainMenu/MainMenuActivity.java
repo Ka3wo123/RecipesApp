@@ -14,7 +14,6 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.recipesapp.Api.Listeners.FridgeProductListener;
 import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeProduct;
-import com.example.recipesapp.Api.RequestManager;
 import com.example.recipesapp.Api.RequestManagerDatabase;
 import com.example.recipesapp.R;
 import com.example.recipesapp.fridge.FridgeActivity;
@@ -33,6 +32,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private TextView usernameLabel;
     private String username, query;
     private RequestManagerDatabase requestManager;
+    private boolean isNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +50,15 @@ public class MainMenuActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
+        isNew = intent.getBooleanExtra("fromRegistration", false);
 
         usernameLabel.setText(username + "!");
 
         requestManager = new RequestManagerDatabase(this);
-        requestManager.getFridgeProducts(fridgeProductListener, username);
+
+        if(!isNew) {
+            requestManager.getFridgeProducts(fridgeProductListener, username);
+        }
 
         bindActivity(toFridge, FridgeActivity.class);
         bindActivity(toAvailable, FoundRecipesActivity.class);
@@ -69,6 +73,7 @@ public class MainMenuActivity extends AppCompatActivity {
             popup.show(getSupportFragmentManager(), "Logout popup");
         });
 
+
     }
 
     void bindActivity(Button button, Class<?> activity) {
@@ -77,8 +82,9 @@ public class MainMenuActivity extends AppCompatActivity {
             if (button == toAvailable) {
                 intent.putExtra("username", username);
                 intent.putExtra("fromFridge", true);
-                intent.putExtra("query", query);
-                Log.v("ingredients", query);
+                if(query != null) {
+                    intent.putExtra("query", query);
+                }
             } else if (button == toFridge || button == toList) {
                 intent.putExtra("username", username);
             }
@@ -106,8 +112,10 @@ public class MainMenuActivity extends AppCompatActivity {
             for (FridgeProduct ingredient : fridgeProductListener) {
                 builder.append(ingredient.productName).append(",");
             }
-            builder.deleteCharAt(builder.length() - 1);
-            query = String.valueOf(builder);
+            if(builder.length() != 0) {
+                builder.deleteCharAt(builder.length() - 1);
+                query = String.valueOf(builder);
+            }
 
         }
 

@@ -16,15 +16,12 @@ import android.widget.Toast;
 import com.example.recipesapp.R;
 import com.example.recipesapp.mainMenu.MainMenuActivity;
 
-import java.util.Arrays;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 public class LoginActivity extends AppCompatActivity {
@@ -42,8 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         registerView = findViewById(R.id.signUpTv);
-
-        readLoginFromSP();
+        
 
         registerView.setOnClickListener(v -> goToRegisterActivity());
 
@@ -52,8 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         if(readCheckedFromSP()) {
             readLoginFromSP();
         }
-
-
 
     }
 
@@ -69,15 +63,12 @@ public class LoginActivity extends AppCompatActivity {
         CallAccount accountCall = databaseRetrofit.create(CallAccount.class);
         Call<Boolean> call = accountCall.validateCredentials(login, pass);
         Intent mainMenu = new Intent(this, MainMenuActivity.class);
-        Log.v("username", login + pass);
 
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 boolean isValid = Boolean.TRUE.equals(response.body());
-                Log.v("username", response.code() + " " + isValid);
-                // TODO zmienic na isValid !!!!
-                if (true) {
+                if (isValid) {
                     mainMenu.putExtra("username", username.getText().toString());
                     startActivity(mainMenu);
                 } else {

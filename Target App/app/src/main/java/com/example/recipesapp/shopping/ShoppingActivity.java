@@ -59,24 +59,11 @@ public class ShoppingActivity extends AppCompatActivity implements AddNewShoppin
             popup.show(getSupportFragmentManager(), "Popup shopping");
         });
 
-        //addToFridgeBtn.setOnClickListener(v -> addToFridge());
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
-//    private void addToFridge() {
-//        for (ShoppingProduct product : productsList.shoppingProductsList) {
-//            FridgeProduct fridgeProduct = new FridgeProduct(product.id,
-//                    product.username,
-//                    product.productName,
-//                    product.)
-//            requestManager.addToFridge(product);
-//            requestManager.deleteFromShoppingList(product.id);
-//        }
-//        adapter.notifyItemRangeRemoved(0, productsList.shoppingProductsList.size());
-//        Toast.makeText(this, "Products added to fridge", Toast.LENGTH_SHORT).show();
-//    }
 
     private final ShoppingListener shoppingListener = new ShoppingListener() {
         @Override

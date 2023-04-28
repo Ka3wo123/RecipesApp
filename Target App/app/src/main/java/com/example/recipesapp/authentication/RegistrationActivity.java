@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,9 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -44,7 +41,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
         requestManager = new RequestManager(this);
 
-        signUpBtn.setOnClickListener(v -> createAccount());
+        signUpBtn.setOnClickListener(v -> {
+            createAccount();
+            finish();
+        });
         returnButton.setOnClickListener(v -> finish());
     }
 
@@ -65,7 +65,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 usernameAcc,
                 password1Acc));
 
-        if(!password1Acc.equals(password2Acc)) {
+        if (!password1Acc.equals(password2Acc)) {
             Toast.makeText(this, "Passwords are different", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -77,6 +77,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (Boolean.TRUE.equals(response.body())) {
                     mainMenu.putExtra("username", usernameAcc);
+                    mainMenu.putExtra("fromRegistration", true);
                     startActivity(mainMenu);
                 } else {
                     Toast.makeText(RegistrationActivity.this, "Username already exists", Toast.LENGTH_SHORT).show();

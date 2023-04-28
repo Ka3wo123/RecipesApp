@@ -4,25 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.recipesapp.Api.Listeners.FridgeProductListener;
 import com.example.recipesapp.Api.Listeners.RecipesFoundListener;
 import com.example.recipesapp.Api.Listeners.RecipesFromFridgeListener;
-import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeProduct;
 import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipe;
 import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipes;
 import com.example.recipesapp.Api.Models.Models.RecipesFromFridge.RecipeFromFridge;
-import com.example.recipesapp.Api.Models.Models.RecipesFromFridge.RecipesFromFridge;
 import com.example.recipesapp.Api.RequestManager;
-import com.example.recipesapp.Api.RequestManagerDatabase;
 import com.example.recipesapp.Libraries.RecipesAdapter;
 import com.example.recipesapp.R;
 
@@ -54,8 +48,10 @@ public class FoundRecipesActivity extends AppCompatActivity {
         boolean fromFridge = intent.getBooleanExtra("fromFridge", false);
 
         manager = new RequestManager(this);
-        if (fromFridge) {
+        if (fromFridge && query != null) {
             manager.getRecipesFromFridge(recipesFromFridgeListener, query, 15, true, 2);
+        } else if (query == null) {
+            manager.findRecipesRaw(recipesFoundListener);
         } else {
             manager.getFoundRecipes(recipesFoundListener, query, number);
         }
