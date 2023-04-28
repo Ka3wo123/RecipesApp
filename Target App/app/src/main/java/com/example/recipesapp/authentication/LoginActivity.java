@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;
     private EditText username, password;
     private TextView registerView;
-
+    private CheckBox checked;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,13 +39,15 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         registerView = findViewById(R.id.signUpTv);
+        checked = findViewById(R.id.rememberPassword);
 
 
         registerView.setOnClickListener(v -> goToRegisterActivity());
 
         loginBtn.setOnClickListener(v -> login());
-        saveCheckedToSP();
+
         if(readCheckedFromSP()) {
+            checked.setChecked(true);
             readLoginFromSP();
         }
 
@@ -55,10 +57,13 @@ public class LoginActivity extends AppCompatActivity {
         String login = username.getText().toString();
         String pass = password.getText().toString();
 
+        saveCheckedToSP();
+
         Retrofit databaseRetrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.2.58:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
 
         CallAccount accountCall = databaseRetrofit.create(CallAccount.class);
         Call<Boolean> call = accountCall.validateCredentials(login, pass);
