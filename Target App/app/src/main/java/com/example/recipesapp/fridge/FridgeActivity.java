@@ -6,36 +6,34 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.recipesapp.Api.Listeners.FridgeProductListener;
 import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeList;
 import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeProduct;
-import com.example.recipesapp.Api.RequestManager;
+import com.example.recipesapp.Api.RequestManagerDatabase;
 import com.example.recipesapp.Libraries.ProductAdapter;
 import com.example.recipesapp.R;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class FridgeActivity extends AppCompatActivity implements AddNewPopup.AddNewListener {
 
 
-    private ProgressDialog dialog;
+    private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private Button addNewBtn, sortBtn;
     private ImageButton backBtn;
-    private RequestManager requestManager;
+    private RequestManagerDatabase requestManager;
     private String username;
     private FridgeList fridgeList = new FridgeList();
 
@@ -49,10 +47,10 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         sortBtn = findViewById(R.id.sortButton);
 
 
-        dialog = new ProgressDialog(this);
-        dialog.show();
+        progressBar = findViewById(R.id.progressBarRecipes);
+        progressBar.setVisibility(View.VISIBLE);
 
-        requestManager = new RequestManager(this);
+        requestManager = new RequestManagerDatabase(this);
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
 
@@ -80,9 +78,13 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
     private final FridgeProductListener fridgeProductListener = new FridgeProductListener() {
         @Override
         public void didFetch(List<FridgeProduct> fridgeProductListener, String message) {
-            dialog.dismiss();
+            progressBar.setVisibility(View.INVISIBLE);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(FridgeActivity.this));
+
+            if(fridgeProductListener.isEmpty()) {
+                Toast.makeText(FridgeActivity.this, "Your fridge is empty", Toast.LENGTH_SHORT).show();
+            }
 
             fridgeList.productsList = new ArrayList<>();
 
@@ -99,7 +101,8 @@ public class FridgeActivity extends AppCompatActivity implements AddNewPopup.Add
         }
         @Override
         public void didError(String error) {
-            Toast.makeText(FridgeActivity.this, "Error with fetching", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(FridgeActivity.this, "Server is down or other problem occurred", Toast.LENGTH_SHORT).show();
         }
     };
 

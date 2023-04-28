@@ -6,18 +6,18 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.recipesapp.Api.Listeners.ShoppingListener;
-import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeProduct;
 import com.example.recipesapp.Api.Models.Models.ShoppingProducts.ShoppingProduct;
 import com.example.recipesapp.Api.Models.Models.ShoppingProducts.ShoppingProductsList;
-import com.example.recipesapp.Api.RequestManager;
+import com.example.recipesapp.Api.RequestManagerDatabase;
 import com.example.recipesapp.Libraries.ShoppingAdapter;
 import com.example.recipesapp.R;
 
@@ -25,12 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingActivity extends AppCompatActivity implements AddNewShoppingPopup.AddNewListener {
-    private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
     private ShoppingAdapter adapter;
     private RecyclerView recyclerView;
     private ImageButton back;
     private Button addNew, addToFridgeBtn;
-    private RequestManager requestManager;
+    private RequestManagerDatabase requestManager;
     private String username;
     private ShoppingProductsList productsList = new ShoppingProductsList();
 
@@ -47,9 +47,9 @@ public class ShoppingActivity extends AppCompatActivity implements AddNewShoppin
 
         username = intent.getStringExtra("username");
 
-        requestManager = new RequestManager(this);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.show();
+        requestManager = new RequestManagerDatabase(this);
+        progressBar = findViewById(R.id.progressBarRecipes);
+        progressBar.setVisibility(View.VISIBLE);
 
         requestManager.getShoppingListProducts(shoppingListener, username);
 
@@ -82,8 +82,12 @@ public class ShoppingActivity extends AppCompatActivity implements AddNewShoppin
         @Override
         public void didFetch(List<ShoppingProduct> shoppingProducts, String message) {
 
-            progressDialog.dismiss();
+            progressBar.setVisibility(View.INVISIBLE);
             recyclerView.setLayoutManager(new LinearLayoutManager(ShoppingActivity.this));
+
+            if(shoppingProducts.isEmpty()) {
+                Toast.makeText(ShoppingActivity.this, "Your shopping list is empty", Toast.LENGTH_SHORT).show();
+            }
 
             productsList.shoppingProductsList = new ArrayList<>();
 
@@ -102,7 +106,8 @@ public class ShoppingActivity extends AppCompatActivity implements AddNewShoppin
 
         @Override
         public void didError(String error) {
-
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(ShoppingActivity.this, "Server is down or other problem occurred", Toast.LENGTH_SHORT).show();
         }
     };
 

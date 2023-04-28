@@ -8,16 +8,21 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.recipesapp.Api.Listeners.FridgeProductListener;
 import com.example.recipesapp.Api.Listeners.RecipesFoundListener;
 import com.example.recipesapp.Api.Listeners.RecipesFromFridgeListener;
+import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeProduct;
 import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipe;
 import com.example.recipesapp.Api.Models.Models.ListOfRecipes.Recipes;
 import com.example.recipesapp.Api.Models.Models.RecipesFromFridge.RecipeFromFridge;
 import com.example.recipesapp.Api.Models.Models.RecipesFromFridge.RecipesFromFridge;
 import com.example.recipesapp.Api.RequestManager;
+import com.example.recipesapp.Api.RequestManagerDatabase;
 import com.example.recipesapp.Libraries.RecipesAdapter;
 import com.example.recipesapp.R;
 
@@ -26,9 +31,9 @@ import java.util.List;
 
 public class FoundRecipesActivity extends AppCompatActivity {
 
-    private ProgressDialog dialog;
+    private ProgressBar progressBar;
     private RequestManager manager;
-    private String query;
+    private String query = "";
     private RecyclerView recyclerView;
     private RecipesAdapter recipesAdapter;
     private ImageButton backBtn;
@@ -49,25 +54,23 @@ public class FoundRecipesActivity extends AppCompatActivity {
         boolean fromFridge = intent.getBooleanExtra("fromFridge", false);
 
         manager = new RequestManager(this);
-        if(fromFridge){
-            manager.getRecipesFromFridge(recipesFromFridgeListener, "apple,bean,milk,sugar,orange,cinamon", 15, true, 2);
-        }
-        else {
+        if (fromFridge) {
+            manager.getRecipesFromFridge(recipesFromFridgeListener, query, 15, true, 2);
+        } else {
             manager.getFoundRecipes(recipesFoundListener, query, number);
         }
 
 
-
-        dialog = new ProgressDialog(this);
-
-        dialog.show();
+        progressBar = findViewById(R.id.progressBarRecipes);
+        progressBar.setVisibility(View.VISIBLE);
 
     }
+
 
     private final RecipesFoundListener recipesFoundListener = new RecipesFoundListener() {
         @Override
         public void didFetch(Recipes recipes, String message) {
-            dialog.dismiss();
+            progressBar.setVisibility(View.INVISIBLE);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(FoundRecipesActivity.this, RecyclerView.VERTICAL, false));
 
@@ -75,7 +78,7 @@ public class FoundRecipesActivity extends AppCompatActivity {
 
             recyclerView.setAdapter(recipesAdapter);
 
-            if(recipes.results.size() == 0) {
+            if (recipes.results.size() == 0) {
                 Toast.makeText(FoundRecipesActivity.this, "No recipes found", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -83,6 +86,7 @@ public class FoundRecipesActivity extends AppCompatActivity {
 
         @Override
         public void didError(String error) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(FoundRecipesActivity.this, "Error" + error, Toast.LENGTH_SHORT).show();
 
         }
@@ -92,13 +96,13 @@ public class FoundRecipesActivity extends AppCompatActivity {
         @Override
         public void didFetch(List<RecipeFromFridge> recipesFromFridge, String message) {
 
-            dialog.dismiss();
+            progressBar.setVisibility(View.INVISIBLE);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(FoundRecipesActivity.this, RecyclerView.VERTICAL, false));
 
             Recipes recipes = new Recipes();
             recipes.results = new ArrayList<>();
-            for( RecipeFromFridge recipeFromFridge : recipesFromFridge){
+            for (RecipeFromFridge recipeFromFridge : recipesFromFridge) {
                 Recipe recipe = new Recipe();
                 recipe.id = recipeFromFridge.id;
                 recipe.title = recipeFromFridge.title;
@@ -111,7 +115,7 @@ public class FoundRecipesActivity extends AppCompatActivity {
 
             recyclerView.setAdapter(recipesAdapter);
 
-            if(recipesFromFridge.size() == 0) {
+            if (recipesFromFridge.size() == 0) {
                 Toast.makeText(FoundRecipesActivity.this, "No recipes found", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -119,6 +123,7 @@ public class FoundRecipesActivity extends AppCompatActivity {
 
         @Override
         public void didError(String error) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(FoundRecipesActivity.this, "Error" + error, Toast.LENGTH_SHORT).show();
 
         }

@@ -7,26 +7,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.recipesapp.Api.Models.Models.AccountDetails.Account;
-import com.example.recipesapp.Api.RequestManager;
-import com.example.recipesapp.Libraries.DatabaseManager;
-import com.example.recipesapp.Libraries.GlobalData;
 import com.example.recipesapp.R;
 import com.example.recipesapp.mainMenu.MainMenuActivity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 
 import retrofit2.Call;
@@ -34,13 +23,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 public class LoginActivity extends AppCompatActivity {
-    private Connection connection;
-    private GlobalData globalData;
     private Button loginBtn;
     private EditText username, password;
     private TextView registerView;
@@ -50,52 +37,27 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        DatabaseManager databaseManager = new DatabaseManager();
-        connection = databaseManager.connectDB();
 
         loginBtn = findViewById(R.id.button);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         registerView = findViewById(R.id.signUpTv);
 
+        readLoginFromSP();
+
         registerView.setOnClickListener(v -> goToRegisterActivity());
 
-//        connectBtn.setOnClickListener(v -> {
-//            try {
-//                LoginActivity.this.selectUserData(username.getText().toString(), password.getText().toString());
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//
-//        if(readCheckedFromSP())
-//            readLoginFromSP();
+        loginBtn.setOnClickListener(v -> login());
+        saveCheckedToSP();
+        if(readCheckedFromSP()) {
+            readLoginFromSP();
+        }
 
-        loginBtn.setOnClickListener(v -> selectUserData());
 
 
     }
 
-    public void selectUserData() {
-//        try (Statement stm = connection.createStatement()) {
-//            String query = "select * from User where username = ? and password = ?";
-//
-//            PreparedStatement ps = connection.prepareStatement(query);
-//            ps.setString(1, usernameLogin);
-//            ps.setString(2, passwordLogin);
-//
-//            ResultSet resultSet = stm.executeQuery(query);
-//            String name = resultSet.getString("name");
-//            String username = resultSet.getString("username");
-//            String password = resultSet.getString("password");
-//
-//            globalData.setName(name);
-//            globalData.setUsername(username);
-//            globalData.setPassword(password);
-//
-//            //TODO wywoluje funckje do sprawdzenia czy login zapisany
-//                saveCheckedToSP();
-
+    public void login() {
         String login = username.getText().toString();
         String pass = password.getText().toString();
 
@@ -125,19 +87,15 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-
-                Log.v("dupajasia", t.getMessage());
+                Log.v("failure", t.getMessage());
             }
         });
 
 
-//
-//        }
-
     }
 
     private interface CallAccount {
-        @GET("/account/validate")
+        @GET("account/validate")
         Call<Boolean> validateCredentials(@Query("username") String username, @Query("password") String password);
     }
 

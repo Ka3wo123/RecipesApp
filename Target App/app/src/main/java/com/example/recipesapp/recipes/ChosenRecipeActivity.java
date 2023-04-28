@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,15 +21,13 @@ import com.squareup.picasso.Picasso;
 
 public class ChosenRecipeActivity extends AppCompatActivity {
 
-    //TODO Odczytać id z listenera przy pomocy intent getstring
-    int id;
-
-    TextView meal_name, meal_source, meal_summary;
-    RecyclerView recycler_ingredients;
-    ImageView meal_image;
-    RequestManager requestManager;
-    ProgressDialog dialog;
-    IngredientsAdapter ingredientsAdapter;
+    private int id;
+    private TextView meal_name, meal_source, meal_summary;
+    private RecyclerView recycler_ingredients;
+    private ImageView meal_image;
+    private RequestManager requestManager;
+    private ProgressBar progressBar;
+    private IngredientsAdapter ingredientsAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +39,8 @@ public class ChosenRecipeActivity extends AppCompatActivity {
 
         requestManager = new RequestManager(this);
         requestManager.getRecipeDetails(recipeDetailsListener, id);
-        dialog = new ProgressDialog(this);
-        dialog.setTitle("Loading details...");
-        dialog.show();
+        progressBar = findViewById(R.id.progressBarRecipeDetails);
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
@@ -57,7 +56,7 @@ public class ChosenRecipeActivity extends AppCompatActivity {
     private final RecipeDetailsListener recipeDetailsListener = new RecipeDetailsListener() {
         @Override
         public void didFetch(RecipeDetailsResponse recipeDetailsResponse, String message) {
-            dialog.dismiss();
+            progressBar.setVisibility(View.INVISIBLE);
             meal_name.setText(recipeDetailsResponse.title);
             meal_source.setText(recipeDetailsResponse.sourceName);
             meal_summary.setText(recipeDetailsResponse.summary);
@@ -72,6 +71,7 @@ public class ChosenRecipeActivity extends AppCompatActivity {
 
         @Override
         public void didError(String error) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(ChosenRecipeActivity.this, error, Toast.LENGTH_SHORT).show();
         }
     };

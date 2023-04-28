@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +20,12 @@ import com.squareup.picasso.Picasso;
 
 public class WineActivity extends AppCompatActivity {
 
-    ProgressDialog dialog;
-    ImageButton back2;
-    RequestManager manager;
-    EditText input;
-    ImageView searchWine, winePhoto;
-    TextView pairedWines, description, averagePrize, productMatch;
+    private ProgressBar progressBar;
+    private ImageButton back2;
+    private RequestManager manager;
+    private EditText input;
+    private ImageView searchWine, winePhoto;
+    private TextView pairedWines, description, averagePrize, productMatch;
 
 
     @Override
@@ -32,7 +33,8 @@ public class WineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wine);
 
-        dialog = new ProgressDialog(this);
+        progressBar = findViewById(R.id.progressBarWines);
+        progressBar.setVisibility(View.INVISIBLE);
         input = findViewById(R.id.nameOfFoodForWine);
         searchWine = findViewById(R.id.searchWine);
         manager = new RequestManager(this);
@@ -51,7 +53,7 @@ public class WineActivity extends AppCompatActivity {
         searchWine.setOnClickListener(v -> {
             if(!input.getText().toString().equals("")) {
                 manager.getPairedWine(wineMatchListener, input.getText().toString());
-                dialog.show();
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -65,11 +67,12 @@ public class WineActivity extends AppCompatActivity {
             } else {
                 setContent(wineMatches);
             }
-            dialog.dismiss();
+            progressBar.setVisibility(View.INVISIBLE);
         }
 
         @Override
         public void didError(String error) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(WineActivity.this, error, Toast.LENGTH_SHORT).show();
         }
     };
