@@ -1,11 +1,13 @@
 package com.example.recipesapp.recipes;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -58,7 +60,7 @@ public class ChosenRecipeActivity extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
             meal_name.setText(recipeDetailsResponse.title);
             meal_source.setText(recipeDetailsResponse.sourceName);
-            meal_summary.setText(recipeDetailsResponse.summary);
+            meal_summary.setText(HtmlCompat.fromHtml(recipeDetailsResponse.summary, HtmlCompat.FROM_HTML_MODE_LEGACY));
             Picasso.get().load(recipeDetailsResponse.image).into(meal_image);
 
             recycler_ingredients.setHasFixedSize(true);

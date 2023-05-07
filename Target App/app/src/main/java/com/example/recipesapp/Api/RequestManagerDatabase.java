@@ -7,6 +7,7 @@ import com.example.recipesapp.Api.Listeners.FridgeProductListener;
 import com.example.recipesapp.Api.Listeners.ShoppingListener;
 import com.example.recipesapp.Api.Models.Models.FridgeProducts.FridgeProduct;
 import com.example.recipesapp.Api.Models.Models.ShoppingProducts.ShoppingProduct;
+import com.example.recipesapp.R;
 
 import java.util.List;
 
@@ -23,16 +24,15 @@ import retrofit2.http.Path;
 
 public class RequestManagerDatabase {
     private Context context;
+    private final Retrofit databaseRetrofit;
 
     public RequestManagerDatabase(Context context) {
         this.context = context;
+        databaseRetrofit = new Retrofit.Builder()
+                .baseUrl(context.getResources().getString(R.string.server_url))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
-
-    // TODO zmienić URL na serwer z Azure tu i w LoginActivity
-    Retrofit databaseRetrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.2.58:8080/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
 
     public void getShoppingListProducts(ShoppingListener listener, String username) {
         CallShoppingProduct shoppingProduct = databaseRetrofit.create(CallShoppingProduct.class);

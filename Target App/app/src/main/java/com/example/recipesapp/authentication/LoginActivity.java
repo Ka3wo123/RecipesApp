@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         saveCheckedToSP();
 
         Retrofit databaseRetrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.2.58:8080/")
+                .baseUrl(this.getResources().getString(R.string.server_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Server error", Toast.LENGTH_SHORT).show();
                 Log.v("failure", t.getMessage());
             }
         });

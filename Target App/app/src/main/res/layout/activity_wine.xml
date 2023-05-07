@@ -66,13 +66,13 @@
         android:text="@string/wineHeader1"
         android:textAlignment="center"
         android:textColor="@color/black"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/frigdeImage2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wineTvTitle"
-        app:layout_constraintVertical_bias="0.31"
-        android:textSize="15dp"/>
+        app:layout_constraintVertical_bias="0.31" />
 
     <EditText
         android:id="@+id/nameOfFoodForWine"
@@ -105,14 +105,17 @@
 
     <ImageView
         android:id="@+id/winePhoto"
-        android:layout_width="97dp"
-        android:layout_height="258dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/nameOfFoodForWine"
-        app:layout_constraintTop_toBottomOf="@+id/searchWine" />
+        app:layout_constraintTop_toBottomOf="@+id/searchWine"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/indian"
@@ -131,28 +134,27 @@
 
     <TextView
         android:id="@+id/tvPairedWines"
-        android:layout_width="247dp"
-        android:layout_height="42dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/black"
         android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/winePhoto"
-        app:layout_constraintHorizontal_bias="0.909"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/indian"
         app:layout_constraintTop_toBottomOf="@+id/indian" />
 
     <TextView
         android:id="@+id/tvDescription"
-        android:layout_width="248dp"
-        android:layout_height="257dp"
-        android:layout_marginStart="28dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:textColor="@color/black"
+        android:layout_marginEnd="8dp"
         android:text="TextView"
+        android:textColor="@color/black"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/winePhoto"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/japanese"
         app:layout_constraintTop_toBottomOf="@+id/tvPairedWines" />
 
     <TextView
@@ -161,12 +163,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Description:"
-        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/winePhoto"
-        app:layout_constraintHorizontal_bias="0.144"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvPairedWines"
         app:layout_constraintTop_toBottomOf="@+id/tvPairedWines" />
 
     <TextView
@@ -175,12 +175,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Product match:"
-        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/winePhoto"
-        app:layout_constraintHorizontal_bias="0.163"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvDescription"
         app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
     <TextView
@@ -192,9 +190,7 @@
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/winePhoto"
-        app:layout_constraintHorizontal_bias="0.17"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvProductMatch"
         app:layout_constraintTop_toBottomOf="@+id/tvProductMatch" />
 
     <TextView
@@ -205,22 +201,18 @@
         android:text="TextView"
         android:textColor="@color/black"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/tvProductMatch"
-        app:layout_constraintHorizontal_bias="0.095"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nordic"
         app:layout_constraintTop_toBottomOf="@+id/nordic" />
 
     <TextView
         android:id="@+id/tvProductMatch"
-        android:layout_width="335dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="TextView"
         android:textColor="@color/black"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <ProgressBar

@@ -25,5 +25,8 @@
     <string name="cookbookTitle">Cookbook</string>
     <string name="cookbookHeader1">Search by a dish name ("steak") or choose from cuisines</string>
     <string name="foundTitle">Matching recipes</string>
+
+    // URL for server
+    <string name="server_url">http://server_addr:8080/</string>
     
 </resources>

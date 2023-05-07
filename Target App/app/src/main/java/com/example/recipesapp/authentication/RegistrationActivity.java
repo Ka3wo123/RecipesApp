@@ -50,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     void createAccount() {
         Retrofit databaseRetrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.2.58:8080/")
+                .baseUrl(this.getResources().getString(R.string.server_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
